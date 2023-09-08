@@ -1,0 +1,27 @@
+buildscript {
+	repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io/' }
+    }
+    dependencies {
+        classpath('com.github.Fox2Code.FoxLoader:dev:1.2.12')
+    }
+}
+
+apply plugin: 'foxloader.dev'
+
+version '1.0.0'
+
+foxloader {
+    // forceReload = true
+    modId = "swampmaster2160smod"
+    modName = "SwampMaster2160's Mod"
+    modVersion = project.version
+    modDesc = "Mod made by SwampMaster2160"
+    clientMod = "com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModClient"
+    serverMod = "com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModServer"
+    // Development tools don't like that both client and server define
+    // the same classes, so uncomment to disable the side inclusion.
+    // includeClient = false
+    // includeServer = false
+}
