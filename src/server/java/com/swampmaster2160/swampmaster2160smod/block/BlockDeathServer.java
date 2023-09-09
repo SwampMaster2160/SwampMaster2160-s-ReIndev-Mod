@@ -7,7 +7,6 @@ import net.minecraft.src.game.level.World;
 
 // Serverside class for the death block
 public class BlockDeathServer extends Block {
-
 	public BlockDeathServer(int id) {
 		super(id, Material.rock);
 	}
@@ -17,5 +16,4 @@ public class BlockDeathServer extends Block {
 		player.heal(Integer.MIN_VALUE);
 		return true;
 	}
-	
 }

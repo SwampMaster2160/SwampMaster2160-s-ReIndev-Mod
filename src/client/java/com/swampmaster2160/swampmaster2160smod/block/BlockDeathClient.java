@@ -8,10 +8,8 @@ import net.minecraft.src.game.level.World;
 
 // Clientside class for the death block
 public class BlockDeathClient extends Block {
-
 	public BlockDeathClient(int id) {
 		super(id, Material.rock);
-		//Block
 	}
 
 	// When right clicked, kills player.
@@ -33,5 +31,4 @@ public class BlockDeathClient extends Block {
 		this.addTexture(top_texture_name, Face.TOP, 0);
 		this.addTexture(top_texture_name, Face.BOTTOM, 0);
 	}
-	
 }
