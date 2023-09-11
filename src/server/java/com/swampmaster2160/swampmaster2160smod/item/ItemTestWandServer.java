@@ -8,7 +8,7 @@ import net.minecraft.src.game.nbt.NBTTagCompound;
 
 public class ItemTestWandServer extends Item {
 	public ItemTestWandServer(int id) {
-		super(id - 2304 + 2048);
+		super(id - 256);
 	}
 
 	@Override
