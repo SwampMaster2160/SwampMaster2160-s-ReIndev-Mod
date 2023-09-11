@@ -1,11 +1,10 @@
 package com.swampmaster2160.swampmaster2160smod.block;
 
-import org.jetbrains.annotations.Nullable;
-
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
 import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModClient;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
 
+import net.minecraft.src.game.block.Block;
 import net.minecraft.src.game.block.texture.Face;
 import net.minecraft.src.game.level.World;
 
@@ -14,27 +13,22 @@ public class BlockTriStateSignalClient extends BlockTriStateClient {
 		super(id);
 	}
 
-	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, int arg5) {
-		super.onNeighborBlockChange(world, x, y, z, arg5);
-		for (int i = 0; i < 6; i++) {
-			Direction6Enum direction = Direction6Enum.fromInt(i);
-			int neighborX = x + direction.xOffset;
-			int neighborY = y + direction.yOffset;
-			int neighborZ = z + direction.zOffset;
-			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
-			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
-				TriStateStateEnum neighborState = getTriStateState(world, neighborX, neighborY, neighborZ, direction);
-				TriStateStateEnum thisBlockState = getTriStateState(world, x, y, z, direction);
-				if (neighborState != null && neighborState != thisBlockState) {
-					world.setBlockMetadataWithNotify(x, y, z, neighborState.intValue);
+	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom, TriStateStateEnum newState) {
+		TriStateStateEnum oldState = TriStateStateEnum.fromInt(world.getBlockMetadata(x, y, z));
+		if (newState != oldState && (newState == TriStateStateEnum.FLOATING || oldState == TriStateStateEnum.FLOATING)) {
+			world.setBlockMetadataWithNotify(x, y, z, newState.intValue);
+			for (int i = 0; i < 6; i++) {
+				Direction6Enum direction = Direction6Enum.fromInt(i);
+				int neighborX = x + direction.xOffset;
+				int neighborY = y + direction.yOffset;
+				int neighborZ = z + direction.zOffset;
+				int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
+				if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
+					BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+					neighborBlock.setTriStateState(world, neighborX, neighborY, neighborZ, direction, newState);
 				}
 			}
 		}
-	}
-
-	public @Nullable TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
-		return TriStateStateEnum.fromInt(world.getBlockMetadata(x, y, z));
 	}
 
 	// Sets textures for each side of the block.
