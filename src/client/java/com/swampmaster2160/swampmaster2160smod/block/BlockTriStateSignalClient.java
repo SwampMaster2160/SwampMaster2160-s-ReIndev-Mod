@@ -1,5 +1,7 @@
 package com.swampmaster2160.swampmaster2160smod.block;
 
+import java.util.Set;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
@@ -13,6 +15,10 @@ import net.minecraft.src.game.level.World;
 public class BlockTriStateSignalClient extends BlockTriStateClient {
 	public BlockTriStateSignalClient(int id) {
 		super(id);
+	}
+
+	public @Nullable TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
+		return TriStateStateEnum.fromInt(world.getBlockMetadata(x, y, z));
 	}
 
 	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom, TriStateStateEnum newState) {
@@ -33,7 +39,7 @@ public class BlockTriStateSignalClient extends BlockTriStateClient {
 		}
 	}
 
-	@Override
+	/*@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
 		for (int i = 0; i < 6; i++) {
 			Direction6Enum direction = Direction6Enum.fromInt(i);
@@ -66,9 +72,31 @@ public class BlockTriStateSignalClient extends BlockTriStateClient {
 		}
 	}
 
-	public @Nullable TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
-		return TriStateStateEnum.fromInt(world.getBlockMetadata(x, y, z));
+	@Override
+	public void addSignalSource(World world, int x, int y, int z, Direction6Enum directionFrom) {
+		
 	}
+
+	@Override
+	public int getSignalSourceCount(World world, int x, int y, int z, Set<int[]> visited) {
+		for (int[] pos : visited) {
+			if (pos[0] == x && pos[1] == y && pos[2] == z) return 0;
+		}
+		super.getSignalSourceCount(world, x, y, z, visited);
+		int count = 0;
+		for (int i = 0; i < 6; i++) {
+			Direction6Enum direction = Direction6Enum.fromInt(i);
+			int neighborX = x + direction.xOffset;
+			int neighborY = y + direction.yOffset;
+			int neighborZ = z + direction.zOffset;
+			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
+			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
+				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+				count += neighborBlock.getSignalSourceCount(world, neighborX, neighborY, neighborZ, visited);
+			}
+		}
+		return count;
+	}*/
 
 	// Sets textures for each side of the block.
 	@Override
