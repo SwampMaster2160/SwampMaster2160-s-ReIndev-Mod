@@ -1,5 +1,7 @@
 package com.swampmaster2160.swampmaster2160smod.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
 import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModClient;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
@@ -10,6 +12,10 @@ import net.minecraft.src.game.level.World;
 public class BlockTriStateFalseClient extends BlockTriStateClient {
 	public BlockTriStateFalseClient(int id) {
 		super(id);
+	}
+
+	public @Nullable TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
+		return TriStateStateEnum.FALSE;
 	}
 
 	@Override

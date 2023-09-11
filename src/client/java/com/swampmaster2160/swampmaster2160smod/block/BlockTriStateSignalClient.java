@@ -1,5 +1,7 @@
 package com.swampmaster2160.swampmaster2160smod.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
 import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModClient;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
@@ -29,6 +31,43 @@ public class BlockTriStateSignalClient extends BlockTriStateClient {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onBlockAdded(World world, int x, int y, int z) {
+		for (int i = 0; i < 6; i++) {
+			Direction6Enum direction = Direction6Enum.fromInt(i);
+			int neighborX = x + direction.xOffset;
+			int neighborY = y + direction.yOffset;
+			int neighborZ = z + direction.zOffset;
+			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
+			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
+				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+				TriStateStateEnum newState = neighborBlock.getTriStateState(world, neighborX, neighborY, neighborZ, direction);
+				if (newState != TriStateStateEnum.FLOATING) {
+					world.setBlockMetadataWithNotify(x, y, z, newState.intValue);
+					break;
+				}
+			}
+		}
+		TriStateStateEnum newState = getTriStateState(world, x, y, z, Direction6Enum.NORTH);
+		if (newState != TriStateStateEnum.FLOATING) {
+			for (int i = 0; i < 6; i++) {
+				Direction6Enum direction = Direction6Enum.fromInt(i);
+				int neighborX = x + direction.xOffset;
+				int neighborY = y + direction.yOffset;
+				int neighborZ = z + direction.zOffset;
+				int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
+				if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
+					BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+					neighborBlock.setTriStateState(world, neighborX, neighborY, neighborZ, direction, newState);
+				}
+			}
+		}
+	}
+
+	public @Nullable TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
+		return TriStateStateEnum.fromInt(world.getBlockMetadata(x, y, z));
 	}
 
 	// Sets textures for each side of the block.
