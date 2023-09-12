@@ -9,8 +9,8 @@ import net.minecraft.src.game.block.Block;
 import net.minecraft.src.game.block.Material;
 import net.minecraft.src.game.level.World;
 
-public class BlockTriStateClient extends Block {
-	public BlockTriStateClient(int id) {
+public class BlockTriStateServer extends Block {
+	public BlockTriStateServer(int id) {
 		super(id, Material.rock);
 	}
 

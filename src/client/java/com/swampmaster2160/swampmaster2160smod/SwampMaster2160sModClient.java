@@ -29,7 +29,7 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 	public void onInit() {
 		// Client specific code
 
-		// Register blocks (serverside)
+		// Register blocks (Clientside)
 		triStateBlocksList = new Vector<Integer>();
 
 		deathBlock = registerNewBlock("death_block", new BlockBuilder()
@@ -51,7 +51,7 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 			.setBlockName("tri_state_false")
 		);
 		triStateBlocksList.add(triStateFalse.getRegisteredBlockId());
-		// Register items (serverside)
+		// Register items (Clientside)
 		testWand = registerNewItem("test_wand", new ItemBuilder()
 			.setGameItemSource(ItemTestWandClient.class)
 			.setItemName("test_wand")
