@@ -2,8 +2,6 @@ package com.swampmaster2160.swampmaster2160smod.block;
 
 import java.util.Set;
 
-import org.jetbrains.annotations.Nullable;
-
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
 
@@ -16,12 +14,21 @@ public class BlockTriStateClient extends Block {
 		super(id, Material.rock);
 	}
 
-	public @Nullable TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
-		return null;
+	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
+		return TriStateStateEnum.FLOATING;
 	}
 
 	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom, TriStateStateEnum newState) {
 
+	}
+
+	public void triStateStateMayNeedChanging(World world, int x, int y, int z) {
+
+	}
+
+	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionFrom, Set<int[]> visited) {
+		visited.add(new int[] { x, y, z });
+		return TriStateStateEnum.FLOATING;
 	}
 
 	/*public int getSignalSourceCount(World world, int x, int y, int z, Set<int[]> visited) {
