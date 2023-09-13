@@ -20,8 +20,12 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving player) {
+		// Get what direction the buffer should face
 		Direction6Enum rotation = determinePistonStyleOrientation(world, x, y, z, (EntityPlayer)player);
+		// Set the direction
 		world.setBlockMetadataWithNotify(x, y, z, rotation.intValue);
+		// If placed then tell all the neighbor blocks except the block the buffer has it's back towards that they may need to change
+		triStateStateMayNeedChanging(world, x, y, z, new HashSet<int[]>());
 	}
 
 	// Sets textures for each side of the block.
@@ -65,22 +69,27 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 		addTexture(arrow_texture_name, Face.WEST,   Direction6Enum.WEST.intValue, false, true);
 	}
 
+	// Get the direction a buffer is facing
 	Direction6Enum getDirectionFacing(World world, int x, int y, int z) {
 		return Direction6Enum.fromInt(world.getBlockMetadata(x, y, z));
 	}
 
 	@Override
 	public int getRenderType() {
+		// Render like a piston base
 		return 16;
 	}
 
 	@Override
-	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
+	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards) {
+		// Get buffer direction
 		Direction6Enum directionFacing = getDirectionFacing(world, x, y, z);
 		Direction6Enum directionTakingStateFrom = getDirectionFacing(world, x, y, z).getOpposite();
-		if (directionFrom == directionFacing) {
+		// Getting the state as the block the buffer has it's back towards gives a floating state
+		if (directionTowards == directionFacing) {
 			return TriStateStateEnum.FLOATING;
 		}
+		// Get the state from the block the buffer is facing away from or return a floating state if there is no tri-state block there
 		int neighborX = x + directionTakingStateFrom.xOffset;
 		int neighborY = y + directionTakingStateFrom.yOffset;
 		int neighborZ = z + directionTakingStateFrom.zOffset;
@@ -93,18 +102,20 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 	}
 
 	@Override
-	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionFrom, Set<int[]> visited) {
-		super.getTriStateStateFromSources(world, x, y, z, directionFrom, visited);
-		return getTriStateState(world, x, y, z, directionFrom);
+	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
+		super.getTriStateStateFromSources(world, x, y, z, directionTowards, visited);
+		// The buffer is a source so give the state of the block it's facing away from
+		return getTriStateState(world, x, y, z, directionTowards);
 	}
 
 	@Override
 	public void triStateStateMayNeedChanging(World world, int x, int y, int z, Set<int[]> visited) {
+		// Don't bother checking if we've already checked this block
 		for (int[] pos : visited) {
 			if (pos[0] == x && pos[1] == y && pos[2] == z) return;
 		}
 		super.triStateStateMayNeedChanging(world, x, y, z, visited);
-		Direction6Enum directionFacing = getDirectionFacing(world, x, y, z);
+		// Tell all the blocks except the block the buffer has it's back towards that they may need to change
 		Direction6Enum directionTakingStateFrom = getDirectionFacing(world, x, y, z).getOpposite();
 		for (int i = 0; i < 6; i++) {
 			Direction6Enum direction = Direction6Enum.fromInt(i);
@@ -120,8 +131,21 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 		}
 	}
 
+	/*@Override
+	public void onBlockAdded(World world, int x, int y, int z) {
+		// If placed then tell all the neighbor blocks except the block the buffer has it's back towards that they may need to change
+		triStateStateMayNeedChanging(world, x, y, z, new HashSet<int[]>());
+	}*/
+
 	@Override
-	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom, TriStateStateEnum newState) {
+	public void onBlockRemoval(World world, int x, int y, int z) {
+		// If removed then tell all the neighbor blocks except the block the buffer has it's back towards that they may need to change
+		triStateStateMayNeedChanging(world, x, y, z, new HashSet<int[]>());
+	}
+
+	@Override
+	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, TriStateStateEnum newState) {
+		// If set then tell all the neighbor blocks except the block the buffer has it's back towards that they may need to change
 		triStateStateMayNeedChanging(world, x, y, z, new HashSet<int[]>());
 	}
 }

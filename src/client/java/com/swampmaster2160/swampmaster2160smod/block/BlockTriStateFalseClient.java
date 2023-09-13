@@ -16,18 +16,20 @@ public class BlockTriStateFalseClient extends BlockTriStateClient {
 	}
 
 	@Override
-	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
+	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards) {
 		return TriStateStateEnum.FALSE;
 	}
 
 	@Override
-	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionFrom, Set<int[]> visited) {
-		super.getTriStateStateFromSources(world, x, y, z, directionFrom, visited);
+	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
+		super.getTriStateStateFromSources(world, x, y, z, directionTowards, visited);
+		// This block is a source for a false state signal
 		return TriStateStateEnum.FALSE;
 	}
 
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
+		// Inform all neighbors that their state may need changing
 		for (int i = 0; i < 6; i++) {
 			Direction6Enum direction = Direction6Enum.fromInt(i);
 			int neighborX = x + direction.xOffset;
@@ -43,6 +45,7 @@ public class BlockTriStateFalseClient extends BlockTriStateClient {
 
 	@Override
 	public void onBlockRemoval(World world, int x, int y, int z) {
+		// Inform all neighbors that their state may need changing
 		for (int i = 0; i < 6; i++) {
 			Direction6Enum direction = Direction6Enum.fromInt(i);
 			int neighborX = x + direction.xOffset;

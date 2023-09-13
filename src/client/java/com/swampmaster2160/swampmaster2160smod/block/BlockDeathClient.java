@@ -12,6 +12,7 @@ public class BlockDeathClient extends BlockSMMBaseClient {
 	}
 
 	// When right clicked, kills player.
+	@Override
 	public boolean blockActivated(World world, int x, int y, int z, EntityPlayer player) {
 		player.heal(Integer.MIN_VALUE);
 		return true;
