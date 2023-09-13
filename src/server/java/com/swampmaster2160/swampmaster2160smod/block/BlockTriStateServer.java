@@ -5,28 +5,33 @@ import java.util.Set;
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
 
-import net.minecraft.src.game.block.Block;
 import net.minecraft.src.game.block.Material;
 import net.minecraft.src.game.level.World;
 
-public class BlockTriStateServer extends Block {
+public abstract class BlockTriStateServer extends BlockSMMBaseServer {
 	public BlockTriStateServer(int id) {
 		super(id, Material.rock);
 	}
 
-	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom) {
+	// Get the tri-state state that the block has given a direction we are looking towards.
+	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
+		visited.add(new int[] { x, y, z });
 		return TriStateStateEnum.FLOATING;
 	}
 
-	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionFrom, TriStateStateEnum newState) {
-
+	// Set the tri-state state that the block has on a side given a direction we are looking towards.
+	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, TriStateStateEnum newState, Set<int[]> visited) {
+		visited.add(new int[] { x, y, z });
 	}
 
-	public void triStateStateMayNeedChanging(World world, int x, int y, int z) {
-
+	// Called when the block may need to change its state (eg. a source block was placed next to it or removed).
+	public void triStateStateMayNeedChanging(World world, int x, int y, int z, Set<int[]> visited) {
+		visited.add(new int[] { x, y, z });
 	}
 
-	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionFrom, Set<int[]> visited) {
+	// Search for tri-state source blocks that affect the blocks state and return the state that the block should be in.
+	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
+		// We have visited this block now.
 		visited.add(new int[] { x, y, z });
 		return TriStateStateEnum.FLOATING;
 	}

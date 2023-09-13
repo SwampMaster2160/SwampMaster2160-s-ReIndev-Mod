@@ -8,6 +8,7 @@ import com.fox2code.foxloader.registry.ItemBuilder;
 import com.fox2code.foxloader.registry.RegisteredBlock;
 import com.fox2code.foxloader.registry.RegisteredItem;
 import com.swampmaster2160.swampmaster2160smod.block.BlockDeathServer;
+import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateBufferServer;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateFalseServer;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateSignalServer;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateTrueServer;
@@ -19,6 +20,7 @@ public class SwampMaster2160sModServer extends SwampMaster2160sMod implements Se
 	public static RegisteredBlock triStateSignal;
 	public static RegisteredBlock triStateTrue;
 	public static RegisteredBlock triStateFalse;
+	public static RegisteredBlock triStateBuffer;
 	// Add the items as static vars
 	public static RegisteredItem testWand;
 	// A list of tri-state blocks
@@ -50,6 +52,11 @@ public class SwampMaster2160sModServer extends SwampMaster2160sMod implements Se
 			.setBlockName("tri_state_false")
 		);
 		triStateBlocksList.add(triStateFalse.getRegisteredBlockId());
+		triStateBuffer = registerNewBlock("tri_state_buffer", new BlockBuilder()
+			.setGameBlockSource(BlockTriStateBufferServer.class)
+			.setBlockName("tri_state_buffer")
+		);
+		triStateBlocksList.add(triStateBuffer.getRegisteredBlockId());
 		// Register items (serverside)
 		testWand = registerNewItem("test_wand", new ItemBuilder()
 			.setGameItemSource(ItemTestWandServer.class)
