@@ -39,4 +39,15 @@ public enum TriStateStateEnum {
 		}
 		return ERROR;
 	}
+
+	public TriStateStateEnum not() {
+		switch (this) {
+			case TRUE:
+				return FALSE;
+			case FALSE:
+				return TRUE;
+			default:
+				return this;
+		}
+	}
 }

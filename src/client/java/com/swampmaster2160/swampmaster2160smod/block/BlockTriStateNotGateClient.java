@@ -13,8 +13,8 @@ import net.minecraft.src.game.entity.EntityLiving;
 import net.minecraft.src.game.entity.player.EntityPlayer;
 import net.minecraft.src.game.level.World;
 
-public class BlockTriStateBufferClient extends BlockTriStateClient {
-	public BlockTriStateBufferClient(int id) {
+public class BlockTriStateNotGateClient extends BlockTriStateClient {
+	public BlockTriStateNotGateClient(int id) {
 		super(id);
 	}
 
@@ -101,7 +101,7 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 		int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
 		if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
 			BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
-			return neighborBlock.getTriStateState(world, neighborX, neighborY, neighborZ, directionTakingStateFrom, visited);
+			return neighborBlock.getTriStateState(world, neighborX, neighborY, neighborZ, directionTakingStateFrom, visited).not();
 		}
 		return TriStateStateEnum.FLOATING;
 	}
