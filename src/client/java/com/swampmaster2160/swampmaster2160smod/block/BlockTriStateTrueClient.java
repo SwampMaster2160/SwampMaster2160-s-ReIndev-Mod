@@ -16,7 +16,7 @@ public class BlockTriStateTrueClient extends BlockTriStateClient {
 	}
 
 	@Override
-	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards) {
+	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
 		return TriStateStateEnum.TRUE;
 	}
 

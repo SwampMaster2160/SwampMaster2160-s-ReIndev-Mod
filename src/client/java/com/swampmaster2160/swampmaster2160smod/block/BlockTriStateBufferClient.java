@@ -81,7 +81,12 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 	}
 
 	@Override
-	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards) {
+	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
+		// Don't bother checking if we've already checked this block
+		for (int[] pos : visited) {
+			if (pos[0] == x && pos[1] == y && pos[2] == z) return TriStateStateEnum.ERROR;
+		}
+		super.getTriStateState(world, x, y, z, directionTowards, visited);
 		// Get buffer direction
 		Direction6Enum directionFacing = getDirectionFacing(world, x, y, z);
 		Direction6Enum directionTakingStateFrom = getDirectionFacing(world, x, y, z).getOpposite();
@@ -96,16 +101,16 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 		int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
 		if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
 			BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
-			return neighborBlock.getTriStateState(world, neighborX, neighborY, neighborZ, directionTakingStateFrom);
+			return neighborBlock.getTriStateState(world, neighborX, neighborY, neighborZ, directionTakingStateFrom, visited);
 		}
 		return TriStateStateEnum.FLOATING;
 	}
 
 	@Override
 	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
-		super.getTriStateStateFromSources(world, x, y, z, directionTowards, visited);
+		//super.getTriStateStateFromSources(world, x, y, z, directionTowards, visited);
 		// The buffer is a source so give the state of the block it's facing away from
-		return getTriStateState(world, x, y, z, directionTowards);
+		return getTriStateState(world, x, y, z, directionTowards, visited);
 	}
 
 	@Override
@@ -126,16 +131,10 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
 			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
 				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
-				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ, new HashSet<int[]>());
+				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ, visited);
 			}
 		}
 	}
-
-	/*@Override
-	public void onBlockAdded(World world, int x, int y, int z) {
-		// If placed then tell all the neighbor blocks except the block the buffer has it's back towards that they may need to change
-		triStateStateMayNeedChanging(world, x, y, z, new HashSet<int[]>());
-	}*/
 
 	@Override
 	public void onBlockRemoval(World world, int x, int y, int z) {
@@ -144,8 +143,8 @@ public class BlockTriStateBufferClient extends BlockTriStateClient {
 	}
 
 	@Override
-	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, TriStateStateEnum newState) {
+	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, TriStateStateEnum newState, Set<int[]> visited) {
 		// If set then tell all the neighbor blocks except the block the buffer has it's back towards that they may need to change
-		triStateStateMayNeedChanging(world, x, y, z, new HashSet<int[]>());
+		triStateStateMayNeedChanging(world, x, y, z, visited);
 	}
 }

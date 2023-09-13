@@ -14,18 +14,19 @@ public abstract class BlockTriStateClient extends BlockSMMBaseClient {
 	}
 
 	// Get the tri-state state that the block has given a direction we are looking towards.
-	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards) {
+	public TriStateStateEnum getTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
+		visited.add(new int[] { x, y, z });
 		return TriStateStateEnum.FLOATING;
 	}
 
 	// Set the tri-state state that the block has on a side given a direction we are looking towards.
-	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, TriStateStateEnum newState) {
-
+	public void setTriStateState(World world, int x, int y, int z, Direction6Enum directionTowards, TriStateStateEnum newState, Set<int[]> visited) {
+		visited.add(new int[] { x, y, z });
 	}
 
 	// Called when the block may need to change its state (eg. a source block was placed next to it or removed).
 	public void triStateStateMayNeedChanging(World world, int x, int y, int z, Set<int[]> visited) {
-		visited.add(new int[] {x, y, z});
+		visited.add(new int[] { x, y, z });
 	}
 
 	// Search for tri-state source blocks that affect the blocks state and return the state that the block should be in.
