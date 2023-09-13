@@ -8,6 +8,7 @@ import com.fox2code.foxloader.registry.ItemBuilder;
 import com.fox2code.foxloader.registry.RegisteredBlock;
 import com.fox2code.foxloader.registry.RegisteredItem;
 import com.swampmaster2160.swampmaster2160smod.block.BlockDeathClient;
+import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateBufferClient;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateFalseClient;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateSignalClient;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateTrueClient;
@@ -19,6 +20,7 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 	public static RegisteredBlock triStateSignal;
 	public static RegisteredBlock triStateTrue;
 	public static RegisteredBlock triStateFalse;
+	public static RegisteredBlock triStateBuffer;
 	// Add the items as static vars
 	public static RegisteredItem testWand;
 	// A list of tri-state blocks
@@ -51,6 +53,11 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 			.setBlockName("tri_state_false")
 		);
 		triStateBlocksList.add(triStateFalse.getRegisteredBlockId());
+		triStateBuffer = registerNewBlock("tri_state_buffer", new BlockBuilder()
+			.setGameBlockSource(BlockTriStateBufferClient.class)
+			.setBlockName("tri_state_buffer")
+		);
+		triStateBlocksList.add(triStateBuffer.getRegisteredBlockId());
 		// Register items (Clientside)
 		testWand = registerNewItem("test_wand", new ItemBuilder()
 			.setGameItemSource(ItemTestWandClient.class)

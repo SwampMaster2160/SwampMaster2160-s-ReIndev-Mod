@@ -2,11 +2,11 @@ package com.swampmaster2160.swampmaster2160smod;
 
 public enum Direction6Enum {
 	UP    (0, 0, 1, 0),
-	NORTH (1, 0, 0, -1),
-	EAST  (2, 1, 0, 0),
-	SOUTH (3, 0, 0, 1),
-	WEST  (4, -1, 0, 0),
-	DOWN  (5, 0, -1, 0);
+	NORTH (3, 0, 0, -1),
+	EAST  (4, 1, 0, 0),
+	SOUTH (2, 0, 0, 1),
+	WEST  (5, -1, 0, 0),
+	DOWN  (1, 0, -1, 0);
 
 	public final int intValue;
 	public final int xOffset;
@@ -25,15 +25,15 @@ public enum Direction6Enum {
 			case 0:
 				return UP;
 			case 1:
-				return NORTH;
-			case 2:
-				return EAST;
-			case 3:
-				return SOUTH;
-			case 4:
-				return WEST;
-			case 5:
 				return DOWN;
+			case 2:
+				return SOUTH;
+			case 3:
+				return NORTH;
+			case 4:
+				return EAST;
+			case 5:
+				return WEST;
 			default:
 				throw new IllegalArgumentException("Invalid direction value: " + intValue);
 		}

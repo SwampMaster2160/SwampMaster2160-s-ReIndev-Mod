@@ -1,13 +1,12 @@
 package com.swampmaster2160.swampmaster2160smod.block;
 
-import net.minecraft.src.game.block.Block;
 import net.minecraft.src.game.block.Material;
 import net.minecraft.src.game.block.texture.Face;
 import net.minecraft.src.game.entity.player.EntityPlayer;
 import net.minecraft.src.game.level.World;
 
 // Clientside class for the death block
-public class BlockDeathClient extends Block {
+public class BlockDeathClient extends BlockSMMBaseClient {
 	public BlockDeathClient(int id) {
 		super(id, Material.rock);
 	}
