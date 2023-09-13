@@ -3,4 +3,5 @@ tile.tri_state_signal.name=Tri-State Signal Wire
 tile.tri_state_true.name=Tri-State True Source
 tile.tri_state_false.name=Tri-State False Source
 tile.tri_state_buffer.name=Tri-State Buffer/Diode
+tile.tri_state_not_gate.name=Tri-State Not Gate
 item.test_wand.name=Test Wand
