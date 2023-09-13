@@ -24,8 +24,8 @@ public class BlockTriStateClient extends BlockSMMBaseClient {
 	}
 
 	// Called when the block may need to change its state (eg. a source block was placed next to it or removed).
-	public void triStateStateMayNeedChanging(World world, int x, int y, int z) {
-
+	public void triStateStateMayNeedChanging(World world, int x, int y, int z, Set<int[]> visited) {
+		visited.add(new int[] {x, y, z});
 	}
 
 	// Search for tri-state source blocks that affect the blocks state and return the state that the block should be in.

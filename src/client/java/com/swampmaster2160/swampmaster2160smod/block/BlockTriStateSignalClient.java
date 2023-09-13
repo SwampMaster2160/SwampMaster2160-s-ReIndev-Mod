@@ -63,14 +63,18 @@ public class BlockTriStateSignalClient extends BlockTriStateClient {
 	}
 
 	@Override
-	public void triStateStateMayNeedChanging(World world, int x, int y, int z) {
+	public void triStateStateMayNeedChanging(World world, int x, int y, int z, Set<int[]> visited) {
+		for (int[] pos : visited) {
+			if (pos[0] == x && pos[1] == y && pos[2] == z) return;
+		}
+		super.triStateStateMayNeedChanging(world, x, y, z, visited);
 		TriStateStateEnum stateFromSources = getTriStateStateFromSources(world, x, y, z, null, new HashSet<int[]>());
 		setTriStateState(world, x, y, z, null, stateFromSources);
 	}
 
 	@Override
 	public void onBlockAdded(World world, int x, int y, int z) {
-		triStateStateMayNeedChanging(world, x, y, z);
+		triStateStateMayNeedChanging(world, x, y, z, new HashSet<int[]>());
 	}
 
 	@Override
@@ -83,7 +87,7 @@ public class BlockTriStateSignalClient extends BlockTriStateClient {
 			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
 			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
 				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
-				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ);
+				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ, new HashSet<int[]>());
 			}
 		}
 	}

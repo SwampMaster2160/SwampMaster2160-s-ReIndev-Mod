@@ -1,5 +1,6 @@
 package com.swampmaster2160.swampmaster2160smod.block;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
@@ -35,7 +36,7 @@ public class BlockTriStateFalseClient extends BlockTriStateClient {
 			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
 			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
 				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
-				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ);
+				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ, new HashSet<int[]>());
 			}
 		}
 	}
@@ -50,7 +51,7 @@ public class BlockTriStateFalseClient extends BlockTriStateClient {
 			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
 			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
 				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
-				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ);
+				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ, new HashSet<int[]>());
 			}
 		}
 	}

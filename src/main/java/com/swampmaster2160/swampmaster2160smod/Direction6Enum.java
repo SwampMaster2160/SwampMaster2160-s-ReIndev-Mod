@@ -39,7 +39,7 @@ public enum Direction6Enum {
 		}
 	}
 
-	public Direction6Enum opposite() {
+	public Direction6Enum getOpposite() {
 		switch (this) {
 			case UP:
 				return DOWN;

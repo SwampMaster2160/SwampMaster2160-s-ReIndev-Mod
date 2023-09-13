@@ -2,4 +2,5 @@ tile.death_block.name=Death Block
 tile.tri_state_signal.name=Tri-State Signal Wire
 tile.tri_state_true.name=Tri-State True Source
 tile.tri_state_false.name=Tri-State False Source
+tile.tri_state_buffer.name=Tri-State Buffer/Diode
 item.test_wand.name=Test Wand
