@@ -2,6 +2,8 @@ package com.swampmaster2160.swampmaster2160smod.block;
 
 import java.util.Set;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
 
@@ -34,5 +36,16 @@ public abstract class BlockTriStateServer extends BlockSMMBaseServer {
 		// We have visited this block now.
 		visited.add(new int[] { x, y, z });
 		return TriStateStateEnum.FLOATING;
+	}
+
+	public @Nullable TriStateStateEnum getTriStateInput(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
+		// We have visited this block now.
+		visited.add(new int[] { x, y, z });
+		return null;
+	}
+
+	public int getInputType(World world, int x, int y, int z, Direction6Enum directionTowards) {
+		// 0 = Not an input
+		return 0;
 	}
 }

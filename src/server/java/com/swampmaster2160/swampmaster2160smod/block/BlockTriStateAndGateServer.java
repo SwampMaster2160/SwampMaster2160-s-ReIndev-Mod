@@ -4,14 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
-import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModClient;
+import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModServer;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
 
 import net.minecraft.src.game.block.Block;
 import net.minecraft.src.game.level.World;
 
-public class BlockTriStateOrGate extends BlockTriStateClient {
-	public BlockTriStateOrGate(int id) {
+public class BlockTriStateAndGateServer extends BlockTriStateServer {
+	public BlockTriStateAndGateServer(int id) {
 		super(id);
 	}
 
@@ -23,17 +23,17 @@ public class BlockTriStateOrGate extends BlockTriStateClient {
 		}
 		super.getTriStateState(world, x, y, z, directionTowards, visited);
 		// Get state
-		TriStateStateEnum out = TriStateStateEnum.FALSE;
+		TriStateStateEnum out = TriStateStateEnum.TRUE;
 		for (int i = 0; i < 6; i++) {
 			Direction6Enum direction = Direction6Enum.fromInt(i);
 			int neighborX = x + direction.xOffset;
 			int neighborY = y + direction.yOffset;
 			int neighborZ = z + direction.zOffset;
 			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
-			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
-				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+			if (SwampMaster2160sModServer.triStateBlocksList.contains(neighborId)) {
+				BlockTriStateServer neighborBlock = (BlockTriStateServer)Block.blocksList[neighborId];
 				if (neighborBlock.getInputType(world, neighborX, neighborY, neighborZ, direction) == 0) continue;
-				out = out.or(neighborBlock.getTriStateInput(world, neighborX, neighborY, neighborZ, direction, visited));
+				out = out.and(neighborBlock.getTriStateInput(world, neighborX, neighborY, neighborZ, direction, visited));
 			}
 		}
 		return out;
@@ -59,8 +59,8 @@ public class BlockTriStateOrGate extends BlockTriStateClient {
 			int neighborY = y + direction.yOffset;
 			int neighborZ = z + direction.zOffset;
 			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
-			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
-				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+			if (SwampMaster2160sModServer.triStateBlocksList.contains(neighborId)) {
+				BlockTriStateServer neighborBlock = (BlockTriStateServer)Block.blocksList[neighborId];
 				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ, visited);
 			}
 		}
@@ -81,8 +81,8 @@ public class BlockTriStateOrGate extends BlockTriStateClient {
 			int neighborY = y + direction.yOffset;
 			int neighborZ = z + direction.zOffset;
 			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
-			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
-				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+			if (SwampMaster2160sModServer.triStateBlocksList.contains(neighborId)) {
+				BlockTriStateServer neighborBlock = (BlockTriStateServer)Block.blocksList[neighborId];
 				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ, new HashSet<int[]>());
 			}
 		}

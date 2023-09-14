@@ -60,7 +60,6 @@ public class BlockTriStateBufferServer extends BlockTriStateServer {
 
 	@Override
 	public TriStateStateEnum getTriStateStateFromSources(World world, int x, int y, int z, Direction6Enum directionTowards, Set<int[]> visited) {
-		//super.getTriStateStateFromSources(world, x, y, z, directionTowards, visited);
 		// The buffer is a source so give the state of the block it's facing away from
 		return getTriStateState(world, x, y, z, directionTowards, visited);
 	}

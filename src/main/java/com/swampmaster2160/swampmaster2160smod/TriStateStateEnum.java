@@ -82,4 +82,18 @@ public enum TriStateStateEnum {
 		if (this == TriStateStateEnum.FALSE && other == TriStateStateEnum.FALSE) return TriStateStateEnum.FALSE;
 		return TriStateStateEnum.FLOATING;
 	}
+
+	public TriStateStateEnum and(TriStateStateEnum other) {
+		if (this == TriStateStateEnum.ERROR || other == TriStateStateEnum.ERROR) return TriStateStateEnum.ERROR;
+		if (this == TriStateStateEnum.FALSE || other == TriStateStateEnum.FALSE) return TriStateStateEnum.FALSE;
+		if (this == TriStateStateEnum.TRUE && other == TriStateStateEnum.TRUE) return TriStateStateEnum.TRUE;
+		return TriStateStateEnum.FLOATING;
+	}
+
+	public TriStateStateEnum xor(TriStateStateEnum other) {
+		if (this == TriStateStateEnum.ERROR || other == TriStateStateEnum.ERROR) return TriStateStateEnum.ERROR;
+		if (this == TriStateStateEnum.FLOATING || other == TriStateStateEnum.FLOATING) return TriStateStateEnum.FLOATING;
+		if ((this == TriStateStateEnum.FALSE && other == TriStateStateEnum.TRUE) || (this == TriStateStateEnum.TRUE && other == TriStateStateEnum.FALSE)) return TriStateStateEnum.TRUE;
+		return TriStateStateEnum.FALSE;
+	}
 }
