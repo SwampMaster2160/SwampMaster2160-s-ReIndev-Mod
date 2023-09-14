@@ -75,4 +75,11 @@ public enum TriStateStateEnum {
 				return this;
 		}
 	}
+
+	public TriStateStateEnum or(TriStateStateEnum other) {
+		if (this == TriStateStateEnum.ERROR || other == TriStateStateEnum.ERROR) return TriStateStateEnum.ERROR;
+		if (this == TriStateStateEnum.TRUE || other == TriStateStateEnum.TRUE) return TriStateStateEnum.TRUE;
+		if (this == TriStateStateEnum.FALSE && other == TriStateStateEnum.FALSE) return TriStateStateEnum.FALSE;
+		return TriStateStateEnum.FLOATING;
+	}
 }

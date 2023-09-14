@@ -10,7 +10,9 @@ import com.fox2code.foxloader.registry.RegisteredItem;
 import com.swampmaster2160.swampmaster2160smod.block.BlockDeathClient;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateBufferClient;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateFalseClient;
+import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateInput1Client;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateNotGateClient;
+import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateOrGate;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateSignalClient;
 import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateTrueClient;
 import com.swampmaster2160.swampmaster2160smod.item.ItemTestWandClient;
@@ -23,6 +25,8 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 	public static RegisteredBlock triStateFalse;
 	public static RegisteredBlock triStateBuffer;
 	public static RegisteredBlock triStateNotGate;
+	public static RegisteredBlock triStateInput1;
+	public static RegisteredBlock triStateOrGate;
 	// Add the items as static vars
 	public static RegisteredItem testWand;
 	// A list of tri-state blocks
@@ -65,6 +69,16 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 			.setBlockName("tri_state_not_gate")
 		);
 		triStateBlocksList.add(triStateNotGate.getRegisteredBlockId());
+		triStateInput1 = registerNewBlock("tri_state_input_1", new BlockBuilder()
+			.setGameBlockSource(BlockTriStateInput1Client.class)
+			.setBlockName("tri_state_input_1")
+		);
+		triStateBlocksList.add(triStateInput1.getRegisteredBlockId());
+		triStateOrGate = registerNewBlock("tri_state_or_gate", new BlockBuilder()
+			.setGameBlockSource(BlockTriStateOrGate.class)
+			.setBlockName("tri_state_or_gate")
+		);
+		triStateBlocksList.add(triStateOrGate.getRegisteredBlockId());
 		// Register items (Clientside)
 		testWand = registerNewItem("test_wand", new ItemBuilder()
 			.setGameItemSource(ItemTestWandClient.class)
