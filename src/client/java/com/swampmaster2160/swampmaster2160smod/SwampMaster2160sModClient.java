@@ -8,15 +8,15 @@ import com.fox2code.foxloader.registry.ItemBuilder;
 import com.fox2code.foxloader.registry.RegisteredBlock;
 import com.fox2code.foxloader.registry.RegisteredItem;
 import com.swampmaster2160.swampmaster2160smod.block.BlockDeathClient;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateAndGateClient;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateBufferClient;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateFalseClient;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateInput1Client;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateNotGateClient;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateOrGateClient;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateSignalClient;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateTrueClient;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateXorGateClient;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateAndGateClient;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateBufferClient;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateFalseClient;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateInput1Client;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateNotGateClient;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateOrGateClient;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateSignalClient;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateTrueClient;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateXorGateClient;
 import com.swampmaster2160.swampmaster2160smod.item.ItemTestWandClient;
 
 public class SwampMaster2160sModClient extends SwampMaster2160sMod implements ClientMod {
@@ -98,5 +98,6 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 			.setGameItemSource(ItemTestWandClient.class)
 			.setItemName("test_wand")
 		);
+		// Register entities
 	}
 }

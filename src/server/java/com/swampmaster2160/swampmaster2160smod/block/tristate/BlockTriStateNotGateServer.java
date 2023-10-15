@@ -1,20 +1,20 @@
-package com.swampmaster2160.swampmaster2160smod.block;
+package com.swampmaster2160.swampmaster2160smod.block.tristate;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
-import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModClient;
+import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModServer;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
+import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateServer;
 
 import net.minecraft.src.game.block.Block;
-import net.minecraft.src.game.block.texture.Face;
 import net.minecraft.src.game.entity.EntityLiving;
 import net.minecraft.src.game.entity.player.EntityPlayer;
 import net.minecraft.src.game.level.World;
 
-public class BlockTriStateNotGateClient extends BlockTriStateClient {
-	public BlockTriStateNotGateClient(int id) {
+public class BlockTriStateNotGateServer extends BlockTriStateServer {
+	public BlockTriStateNotGateServer(int id) {
 		super(id);
 	}
 
@@ -28,56 +28,9 @@ public class BlockTriStateNotGateClient extends BlockTriStateClient {
 		triStateStateMayNeedChanging(world, x, y, z, new HashSet<int[]>());
 	}
 
-	// Sets textures for each side of the block.
-	@Override
-	protected void allocateTextures() {
-		// Get the name of the block
-		String name = this.getBlockName().replace("tile.", "");
-		// Get the name of the side textures
-		String arrow_texture_name = name + "_arrow";
-		// Set the texture for each side
-		addTexture(name, Face.ALL);
-
-		addTexture(arrow_texture_name, Face.NORTH, Direction6Enum.UP.intValue, false, true);
-		addTexture(arrow_texture_name, Face.EAST,  Direction6Enum.UP.intValue, false, true);
-		addTexture(arrow_texture_name, Face.SOUTH, Direction6Enum.UP.intValue, false, true);
-		addTexture(arrow_texture_name, Face.WEST,  Direction6Enum.UP.intValue, false, true);
-
-		addTexture(arrow_texture_name, Face.NORTH, Direction6Enum.DOWN.intValue, false, true);
-		addTexture(arrow_texture_name, Face.EAST,  Direction6Enum.DOWN.intValue, false, true);
-		addTexture(arrow_texture_name, Face.SOUTH, Direction6Enum.DOWN.intValue, false, true);
-		addTexture(arrow_texture_name, Face.WEST,  Direction6Enum.DOWN.intValue, false, true);
-
-		addTexture(arrow_texture_name, Face.TOP,    Direction6Enum.NORTH.intValue, false, true);
-		addTexture(arrow_texture_name, Face.BOTTOM, Direction6Enum.NORTH.intValue, false, true);
-		addTexture(arrow_texture_name, Face.NORTH,  Direction6Enum.NORTH.intValue, false, true);
-		addTexture(arrow_texture_name, Face.SOUTH,  Direction6Enum.NORTH.intValue, false, true);
-
-		addTexture(arrow_texture_name, Face.TOP,    Direction6Enum.SOUTH.intValue, false, true);
-		addTexture(arrow_texture_name, Face.BOTTOM, Direction6Enum.SOUTH.intValue, false, true);
-		addTexture(arrow_texture_name, Face.NORTH,  Direction6Enum.SOUTH.intValue, false, true);
-		addTexture(arrow_texture_name, Face.SOUTH,  Direction6Enum.SOUTH.intValue, false, true);
-
-		addTexture(arrow_texture_name, Face.TOP,    Direction6Enum.EAST.intValue, false, true);
-		addTexture(arrow_texture_name, Face.BOTTOM, Direction6Enum.EAST.intValue, false, true);
-		addTexture(arrow_texture_name, Face.EAST,   Direction6Enum.EAST.intValue, false, true);
-		addTexture(arrow_texture_name, Face.WEST,   Direction6Enum.EAST.intValue, false, true);
-
-		addTexture(arrow_texture_name, Face.TOP,    Direction6Enum.WEST.intValue, false, true);
-		addTexture(arrow_texture_name, Face.BOTTOM, Direction6Enum.WEST.intValue, false, true);
-		addTexture(arrow_texture_name, Face.EAST,   Direction6Enum.WEST.intValue, false, true);
-		addTexture(arrow_texture_name, Face.WEST,   Direction6Enum.WEST.intValue, false, true);
-	}
-
 	// Get the direction a buffer is facing
 	Direction6Enum getDirectionFacing(World world, int x, int y, int z) {
 		return Direction6Enum.fromInt(world.getBlockMetadata(x, y, z));
-	}
-
-	@Override
-	public int getRenderType() {
-		// Render like a piston base
-		return 16;
 	}
 
 	@Override
@@ -99,8 +52,8 @@ public class BlockTriStateNotGateClient extends BlockTriStateClient {
 		int neighborY = y + directionTakingStateFrom.yOffset;
 		int neighborZ = z + directionTakingStateFrom.zOffset;
 		int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
-		if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
-			BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+		if (SwampMaster2160sModServer.triStateBlocksList.contains(neighborId)) {
+			BlockTriStateServer neighborBlock = (BlockTriStateServer)Block.blocksList[neighborId];
 			return neighborBlock.getTriStateState(world, neighborX, neighborY, neighborZ, directionTakingStateFrom, visited).not();
 		}
 		return TriStateStateEnum.FLOATING;
@@ -128,8 +81,8 @@ public class BlockTriStateNotGateClient extends BlockTriStateClient {
 			int neighborY = y + direction.yOffset;
 			int neighborZ = z + direction.zOffset;
 			int neighborId = world.getBlockId(neighborX, neighborY, neighborZ);
-			if (SwampMaster2160sModClient.triStateBlocksList.contains(neighborId)) {
-				BlockTriStateClient neighborBlock = (BlockTriStateClient)Block.blocksList[neighborId];
+			if (SwampMaster2160sModServer.triStateBlocksList.contains(neighborId)) {
+				BlockTriStateServer neighborBlock = (BlockTriStateServer)Block.blocksList[neighborId];
 				neighborBlock.triStateStateMayNeedChanging(world, neighborX, neighborY, neighborZ, visited);
 			}
 		}

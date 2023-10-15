@@ -1,4 +1,4 @@
-package com.swampmaster2160.swampmaster2160smod.block;
+package com.swampmaster2160.swampmaster2160smod.block.tristate;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,6 +6,7 @@ import java.util.Set;
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
 import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModServer;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
+import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateServer;
 
 import net.minecraft.src.game.block.Block;
 import net.minecraft.src.game.level.World;

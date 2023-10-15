@@ -8,15 +8,15 @@ import com.fox2code.foxloader.registry.ItemBuilder;
 import com.fox2code.foxloader.registry.RegisteredBlock;
 import com.fox2code.foxloader.registry.RegisteredItem;
 import com.swampmaster2160.swampmaster2160smod.block.BlockDeathServer;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateAndGateServer;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateBufferServer;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateFalseServer;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateInput1Server;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateNotGateServer;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateOrGateServer;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateSignalServer;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateTrueServer;
-import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateXorGateServer;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateAndGateServer;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateBufferServer;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateFalseServer;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateInput1Server;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateNotGateServer;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateOrGateServer;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateSignalServer;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateTrueServer;
+import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateXorGateServer;
 import com.swampmaster2160.swampmaster2160smod.item.ItemTestWandServer;
 
 public class SwampMaster2160sModServer extends SwampMaster2160sMod implements ServerMod {

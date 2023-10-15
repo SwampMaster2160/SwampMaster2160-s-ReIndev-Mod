@@ -1,4 +1,4 @@
-package com.swampmaster2160.swampmaster2160smod.block;
+package com.swampmaster2160.swampmaster2160smod.block.tristate;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,12 +6,13 @@ import java.util.Set;
 import com.swampmaster2160.swampmaster2160smod.Direction6Enum;
 import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModServer;
 import com.swampmaster2160.swampmaster2160smod.TriStateStateEnum;
+import com.swampmaster2160.swampmaster2160smod.block.BlockTriStateServer;
 
 import net.minecraft.src.game.block.Block;
 import net.minecraft.src.game.level.World;
 
-public class BlockTriStateOrGateServer extends BlockTriStateServer {
-	public BlockTriStateOrGateServer(int id) {
+public class BlockTriStateXorGateServer extends BlockTriStateServer {
+	public BlockTriStateXorGateServer(int id) {
 		super(id);
 	}
 
@@ -23,7 +24,7 @@ public class BlockTriStateOrGateServer extends BlockTriStateServer {
 		}
 		super.getTriStateState(world, x, y, z, directionTowards, visited);
 		// Get state
-		TriStateStateEnum out = TriStateStateEnum.FALSE;
+		TriStateStateEnum out = null;
 		for (int i = 0; i < 6; i++) {
 			Direction6Enum direction = Direction6Enum.fromInt(i);
 			int neighborX = x + direction.xOffset;
@@ -33,10 +34,15 @@ public class BlockTriStateOrGateServer extends BlockTriStateServer {
 			if (SwampMaster2160sModServer.triStateBlocksList.contains(neighborId)) {
 				BlockTriStateServer neighborBlock = (BlockTriStateServer)Block.blocksList[neighborId];
 				if (neighborBlock.getInputType(world, neighborX, neighborY, neighborZ, direction) == 0) continue;
-				out = out.or(neighborBlock.getTriStateInput(world, neighborX, neighborY, neighborZ, direction, visited));
+				if (out == null) {
+					out = neighborBlock.getTriStateInput(world, neighborX, neighborY, neighborZ, direction, visited);
+				}
+				else {
+					out = out.xor(neighborBlock.getTriStateInput(world, neighborX, neighborY, neighborZ, direction, visited));
+				}
 			}
 		}
-		return out;
+		return out == null? TriStateStateEnum.ERROR: out;
 	}
 
 	@Override
