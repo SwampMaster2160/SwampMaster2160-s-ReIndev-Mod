@@ -8,6 +8,7 @@ import com.fox2code.foxloader.registry.ItemBuilder;
 import com.fox2code.foxloader.registry.RegisteredBlock;
 import com.fox2code.foxloader.registry.RegisteredItem;
 import com.swampmaster2160.swampmaster2160smod.block.BlockDeathClient;
+import com.swampmaster2160.swampmaster2160smod.block.entity.EntityRaccoonClient;
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateAndGateClient;
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateBufferClient;
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateFalseClient;
@@ -17,7 +18,14 @@ import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateOrGat
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateSignalClient;
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateTrueClient;
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateXorGateClient;
+import com.swampmaster2160.swampmaster2160smod.client.mixins.MixinEntityList;
 import com.swampmaster2160.swampmaster2160smod.item.ItemTestWandClient;
+
+import net.minecraft.src.game.entity.EntityList;
+import net.minecraft.src.game.level.World;
+import net.minecraft.src.game.level.WorldProvider;
+import net.minecraft.src.game.level.WorldSettings;
+import net.minecraft.src.game.level.chunk.SaveHandler;
 
 public class SwampMaster2160sModClient extends SwampMaster2160sMod implements ClientMod {
 	// All the blocks as static vars
@@ -99,5 +107,11 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 			.setItemName("test_wand")
 		);
 		// Register entities
+		MixinEntityList.addMapping(EntityRaccoonClient.class, "Raccoon", 300);
+		//System.out.println(MixinEntityList.stringToClassMapping.get("Cow"));
+		//System.out.println(EntityList.createEntity(300, new World(new SaveHandler(getConfigFolder(), "", false), "", new WorldSettings(0, 0, true, false, false, 0), new WorldProvider() {
+			
+		// /})));
+		//System.out.println(MixinEntityList.stringToClassMapping.size());
 	}
 }

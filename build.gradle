@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'foxloader.dev'
 
-version '0.5.1'
+version '0.6.0'
 
 foxloader {
     // forceReload = true
@@ -20,6 +20,7 @@ foxloader {
     modDesc = "Mod made by SwampMaster2160"
     clientMod = "com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModClient"
     serverMod = "com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModServer"
+    setUsername("SwampMaster2160")
     // Development tools don't like that both client and server define
     // the same classes, so uncomment to disable the side inclusion.
     // includeClient = false
