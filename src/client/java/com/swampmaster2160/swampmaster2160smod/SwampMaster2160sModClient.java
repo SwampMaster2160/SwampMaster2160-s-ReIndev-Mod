@@ -18,10 +18,12 @@ import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateSigna
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateTrueClient;
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateXorGateClient;
 import com.swampmaster2160.swampmaster2160smod.entity.EntityRaccoonClient;
+import com.swampmaster2160.swampmaster2160smod.item.ItemSMMSpawnEggClient;
 import com.swampmaster2160.swampmaster2160smod.item.ItemTestWandClient;
 import com.swampmaster2160.swampmaster2160smod.mixininterfaces.IMixinEntityList;
 
 import net.minecraft.src.game.entity.EntityList;
+import net.minecraft.src.game.item.Item;
 
 public class SwampMaster2160sModClient extends SwampMaster2160sMod implements ClientMod {
 	// All the blocks as static vars
@@ -37,6 +39,8 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 	public static RegisteredBlock triStateXorGate;
 	// Add the items as static vars
 	public static RegisteredItem testWand;
+	public static RegisteredItem raccoonSpawnEggRegistered;
+	public static ItemSMMSpawnEggClient raccoonSpawnEgg;
 	// A list of tri-state blocks
 	public static Vector<Integer> triStateBlocksList;
 
@@ -102,17 +106,15 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 			.setGameItemSource(ItemTestWandClient.class)
 			.setItemName("test_wand")
 		);
-		// Register entities
+
+		raccoonSpawnEggRegistered = registerNewItem("raccoon_spawn_egg", new ItemBuilder()
+			.setGameItemSource(ItemSMMSpawnEggClient.class)
+			.setItemName("spawnEgg.raccoon")
+		);
+		raccoonSpawnEgg = (ItemSMMSpawnEggClient)Item.itemsList[raccoonSpawnEggRegistered.getRegisteredItemId()];
+		raccoonSpawnEgg.setFlavor("raccoon");
+		// Register entities (Clientside)
 		IMixinEntityList entityListDummyObject = (IMixinEntityList)(Object)new EntityList();
 		entityListDummyObject.addMappingPublic(EntityRaccoonClient.class, "Raccoon", 300);
-		//System.out.println(MixinEntityList.stringToClassMapping.get("Cow"));
-		/*System.out.println(EntityList.createEntity(300, new World(new SaveHandler(getConfigFolder(), "", false), "", new WorldSettings(0, 0, true, false, false, 0), new WorldProvider() {
-			
-		})));
-		System.out.println(EntityList.createEntity(50, new World(new SaveHandler(getConfigFolder(), "", false), "", new WorldSettings(0, 0, true, false, false, 0), new WorldProvider() {
-			
-		})));*/
-		//System.out.println(MixinEntityList.stringToClassMapping.size());
-		//ItemSpawnEgg
 	}
 }

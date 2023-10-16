@@ -1,6 +1,9 @@
 package com.swampmaster2160.swampmaster2160smod.entity;
 
 import java.util.List;
+
+import com.swampmaster2160.swampmaster2160smod.SwampMaster2160sModClient;
+
 import net.minecraft.src.client.physics.AxisAlignedBB;
 import net.minecraft.src.game.MathHelper;
 import net.minecraft.src.game.achievements.AchievementList;
@@ -23,10 +26,10 @@ public class EntityRaccoonClient extends EntityAnimal {
 	private boolean looksWithInterest = false;
 	private float field_25048_b;
 	private float field_25054_c;
-	private boolean isWolfShaking;
+	private boolean isRaccoonShaking;
 	private boolean field_25052_g;
-	private float timeWolfIsShaking;
-	private float prevTimeWolfIsShaking;
+	private float timeRaccoonIsShaking;
+	private float prevTimeRaccoonIsShaking;
 
 	public EntityRaccoonClient(World world) {
 		super(world);
@@ -37,20 +40,20 @@ public class EntityRaccoonClient extends EntityAnimal {
 	}
 
 	private EntityRaccoonClient prepareBabyAnimal() {
-		EntityRaccoonClient babyFox = new EntityRaccoonClient(this.worldObj);
-		String owner = this.getWolfOwner();
-		babyFox.health = 12;
+		EntityRaccoonClient babyRaccoon = new EntityRaccoonClient(this.worldObj);
+		String owner = this.getRaccoonOwner();
+		babyRaccoon.health = 12;
 		if (owner != null && owner.trim().length() > 0) {
-			babyFox.setOwner(owner);
-			babyFox.setTamed(true);
+			babyRaccoon.setOwner(owner);
+			babyRaccoon.setTamed(true);
 		}
 
-		return babyFox;
+		return babyRaccoon;
 	}
 
 	@Override
 	public Item getSpawnEgg() {
-		return Item.foxSpawnEgg;
+		return SwampMaster2160sModClient.raccoonSpawnEgg;
 	}
 
 	protected EntityRaccoonClient makeBaby(EntityAnimal animal) {
@@ -77,24 +80,24 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	@Override
 	public String getEntityTexture() {
-		if (this.isWolfTamed() && !this.isWolfSitting()) {
+		if (this.isRaccoonTamed() && !this.isRaccoonSitting()) {
 			return "/mob/animals/fox/fox_tame.png";
-		} else if (this.isWolfTamed() && this.isWolfSitting()) {
+		} else if (this.isRaccoonTamed() && this.isRaccoonSitting()) {
 			return "/mob/animals/fox/fox_sleeping.png";
 		} else {
-			return this.isWolfAngry() ? "/mob/animals/fox/fox_angry.png" : super.getEntityTexture();
+			return this.isRaccoonAngry() ? "/mob/animals/fox/fox_angry.png" : super.getEntityTexture();
 		}
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nBTTagCompound) {
 		super.writeEntityToNBT(nBTTagCompound);
-		nBTTagCompound.setBoolean("Angry", this.isWolfAngry());
-		nBTTagCompound.setBoolean("Sitting", this.isWolfSitting());
-		if (this.getWolfOwner() == null) {
+		nBTTagCompound.setBoolean("Angry", this.isRaccoonAngry());
+		nBTTagCompound.setBoolean("Sitting", this.isRaccoonSitting());
+		if (this.getRaccoonOwner() == null) {
 			nBTTagCompound.setString("Owner", "");
 		} else {
-			nBTTagCompound.setString("Owner", this.getWolfOwner());
+			nBTTagCompound.setString("Owner", this.getRaccoonOwner());
 		}
 
 	}
@@ -102,8 +105,8 @@ public class EntityRaccoonClient extends EntityAnimal {
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nBTTagCompound) {
 		super.readEntityFromNBT(nBTTagCompound);
-		this.setWolfAngry(nBTTagCompound.getBoolean("Angry"));
-		this.setWolfSitting(nBTTagCompound.getBoolean("Sitting"));
+		this.setRaccoonAngry(nBTTagCompound.getBoolean("Angry"));
+		this.setRaccoonSitting(nBTTagCompound.getBoolean("Sitting"));
 		String var2 = nBTTagCompound.getString("Owner");
 		if (var2.length() > 0) {
 			this.setOwner(var2);
@@ -114,17 +117,17 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	@Override
 	public boolean canDespawn() {
-		return !this.isWolfTamed();
+		return !this.isRaccoonTamed();
 	}
 
 	@Override
 	protected String getLivingSound() {
-		if (this.isWolfAngry()) {
+		if (this.isRaccoonAngry()) {
 			return "mob.fox.aggro";
 		} else if (this.rand.nextInt(3) != 0) {
-			return this.isWolfSitting() ? "mob.fox.sleep" : "mob.fox.idle";
+			return this.isRaccoonSitting() ? "mob.fox.sleep" : "mob.fox.idle";
 		} else {
-			return this.isWolfTamed() && this.dataWatcher.getWatchableObjectInteger(18) < 10
+			return this.isRaccoonTamed() && this.dataWatcher.getWatchableObjectInteger(18) < 10
 				? "mob.fox.whine"
 				: "mob.fox.idle";
 		}
@@ -153,19 +156,19 @@ public class EntityRaccoonClient extends EntityAnimal {
 	@Override
 	protected void updatePlayerActionState() {
 		super.updatePlayerActionState();
-		if (!this.hasAttacked && !this.hasPath() && this.isWolfTamed() && this.ridingEntity == null) {
-			EntityPlayer entityPlayer = this.worldObj.getPlayerEntityByName(this.getWolfOwner());
+		if (!this.hasAttacked && !this.hasPath() && this.isRaccoonTamed() && this.ridingEntity == null) {
+			EntityPlayer entityPlayer = this.worldObj.getPlayerEntityByName(this.getRaccoonOwner());
 			if (entityPlayer != null) {
 				float var2 = entityPlayer.getDistanceToEntity(this);
 				if (var2 > 5.0F) {
 					this.getPathOrWalkableBlock(entityPlayer, var2);
 				}
 			} else if (!this.isInWater()) {
-				this.setWolfSitting(true);
+				this.setRaccoonSitting(true);
 			}
 		} else if (this.playerToAttack == null
 			&& !this.hasPath()
-			&& !this.isWolfTamed()
+			&& !this.isRaccoonTamed()
 			&& this.worldObj.rand.nextInt(100) == 0) {
 			List<?> list = this.worldObj
 				.getEntitiesWithinAABB(
@@ -180,7 +183,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 			}
 		} else if (this.playerToAttack == null
 			&& !this.hasPath()
-			&& !this.isWolfSitting()
+			&& !this.isRaccoonSitting()
 			&& this.worldObj.rand.nextInt(20) == 0) {
 			List<?> var1 = this.worldObj
 				.getEntitiesWithinAABB(
@@ -196,7 +199,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 		}
 
 		if (this.isInWater()) {
-			this.setWolfSitting(false);
+			this.setRaccoonSitting(false);
 		}
 
 		if (!this.worldObj.multiplayerWorld) {
@@ -209,28 +212,28 @@ public class EntityRaccoonClient extends EntityAnimal {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		this.looksWithInterest = false;
-		if (this.hasCurrentTarget() && !this.hasPath() && !this.isWolfAngry()) {
+		if (this.hasCurrentTarget() && !this.hasPath() && !this.isRaccoonAngry()) {
 			Entity entity = this.getCurrentTarget();
 			if (entity instanceof EntityPlayer) {
 				EntityPlayer entityPlayer = (EntityPlayer)entity;
 				ItemStack itemStack = entityPlayer.inventory.getCurrentItem();
 				if (itemStack != null
-					&& (this.isWolfTamed() || itemStack.itemID != Item.blueberry.itemID)
-					&& this.isWolfTamed()
+					&& (this.isRaccoonTamed() || itemStack.itemID != Item.blueberry.itemID)
+					&& this.isRaccoonTamed()
 					&& Item.itemsList[itemStack.itemID] instanceof ItemCookie) {
 					this.looksWithInterest = ((ItemCookie)Item.itemsList[itemStack.itemID]).getIsWolfsFavoriteMeat();
 				}
 			}
 		}
 
-		if (!this.isMultiplayerEntity && this.isWolfShaking && !this.field_25052_g && !this.hasPath() && this.onGround) {
+		if (!this.isMultiplayerEntity && this.isRaccoonShaking && !this.field_25052_g && !this.hasPath() && this.onGround) {
 			this.field_25052_g = true;
-			this.timeWolfIsShaking = 0.0F;
-			this.prevTimeWolfIsShaking = 0.0F;
+			this.timeRaccoonIsShaking = 0.0F;
+			this.prevTimeRaccoonIsShaking = 0.0F;
 			this.worldObj.func_9425_a(this, (byte)8);
 		}
 
-		if (this.isWolfTamed() && this.isWolfSitting()) {
+		if (this.isRaccoonTamed() && this.isRaccoonSitting()) {
 			for(int var3 = 0; var3 < 1; ++var3) {
 				if (this.rand.nextInt(7) == 0) {
 					double var4 = this.rand.nextGaussian() * 0.02;
@@ -267,12 +270,12 @@ public class EntityRaccoonClient extends EntityAnimal {
 		}
 
 		if (this.isWet()) {
-			this.isWolfShaking = true;
+			this.isRaccoonShaking = true;
 			this.field_25052_g = false;
-			this.timeWolfIsShaking = 0.0F;
-			this.prevTimeWolfIsShaking = 0.0F;
-		} else if ((this.isWolfShaking || this.field_25052_g) && this.field_25052_g) {
-			if (this.timeWolfIsShaking == 0.0F) {
+			this.timeRaccoonIsShaking = 0.0F;
+			this.prevTimeRaccoonIsShaking = 0.0F;
+		} else if ((this.isRaccoonShaking || this.field_25052_g) && this.field_25052_g) {
+			if (this.timeRaccoonIsShaking == 0.0F) {
 				this.worldObj
 					.playSoundAtEntity(
 						this,
@@ -282,18 +285,18 @@ public class EntityRaccoonClient extends EntityAnimal {
 					);
 			}
 
-			this.prevTimeWolfIsShaking = this.timeWolfIsShaking;
-			this.timeWolfIsShaking += 0.05F;
-			if (this.prevTimeWolfIsShaking >= 2.0F) {
-				this.isWolfShaking = false;
+			this.prevTimeRaccoonIsShaking = this.timeRaccoonIsShaking;
+			this.timeRaccoonIsShaking += 0.05F;
+			if (this.prevTimeRaccoonIsShaking >= 2.0F) {
+				this.isRaccoonShaking = false;
 				this.field_25052_g = false;
-				this.prevTimeWolfIsShaking = 0.0F;
-				this.timeWolfIsShaking = 0.0F;
+				this.prevTimeRaccoonIsShaking = 0.0F;
+				this.timeRaccoonIsShaking = 0.0F;
 			}
 
-			if (this.timeWolfIsShaking > 0.4F) {
+			if (this.timeRaccoonIsShaking > 0.4F) {
 				float var1 = (float)this.boundingBox.minY;
-				int var2 = (int)(MathHelper.sin((this.timeWolfIsShaking - 0.4F) * (float) Math.PI) * 7.0F);
+				int var2 = (int)(MathHelper.sin((this.timeRaccoonIsShaking - 0.4F) * (float) Math.PI) * 7.0F);
 
 				for(int var3 = 0; var3 < var2; ++var3) {
 					float var4 = (this.rand.nextFloat() * 2.0F - 1.0F) * this.width * 0.5F;
@@ -314,17 +317,17 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	}
 
-	public boolean getWolfShaking() {
-		return this.isWolfShaking;
+	public boolean getRaccoonShaking() {
+		return this.isRaccoonShaking;
 	}
 
 	public float getShadingWhileShaking(float arg1) {
 		return 0.75F
-			+ (this.prevTimeWolfIsShaking + (this.timeWolfIsShaking - this.prevTimeWolfIsShaking) * arg1) / 2.0F * 0.25F;
+			+ (this.prevTimeRaccoonIsShaking + (this.timeRaccoonIsShaking - this.prevTimeRaccoonIsShaking) * arg1) / 2.0F * 0.25F;
 	}
 
 	public float getShakeAngle(float arg1, float arg2) {
-		float var3 = (this.prevTimeWolfIsShaking + (this.timeWolfIsShaking - this.prevTimeWolfIsShaking) * arg1 + arg2)
+		float var3 = (this.prevTimeRaccoonIsShaking + (this.timeRaccoonIsShaking - this.prevTimeRaccoonIsShaking) * arg1 + arg2)
 			/ 1.8F;
 		if (var3 < 0.0F) {
 			var3 = 0.0F;
@@ -349,7 +352,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	@Override
 	protected int func_25026_x() {
-		return this.isWolfSitting() ? 20 : super.func_25026_x();
+		return this.isRaccoonSitting() ? 20 : super.func_25026_x();
 	}
 
 	private void getPathOrWalkableBlock(Entity entity, float arg2) {
@@ -384,12 +387,12 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	@Override
 	protected boolean isMovementCeased() {
-		return this.isWolfSitting() || this.field_25052_g;
+		return this.isRaccoonSitting() || this.field_25052_g;
 	}
 
 	@Override
 	public boolean attackEntityFrom(Entity entity, int arg2) {
-		this.setWolfSitting(false);
+		this.setRaccoonSitting(false);
 		if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow)) {
 			arg2 = (arg2 + 1) / 2;
 		}
@@ -397,9 +400,9 @@ public class EntityRaccoonClient extends EntityAnimal {
 		if (!super.attackEntityFrom(entity, arg2)) {
 			return false;
 		} else {
-			if (!this.isWolfTamed() && !this.isWolfAngry()) {
+			if (!this.isRaccoonTamed() && !this.isRaccoonAngry()) {
 				if (entity instanceof EntityPlayer) {
-					this.setWolfAngry(true);
+					this.setRaccoonAngry(true);
 					this.playerToAttack = entity;
 				}
 
@@ -417,18 +420,18 @@ public class EntityRaccoonClient extends EntityAnimal {
 								.expand(16.0, 4.0, 16.0)
 						)) {
 						EntityRaccoonClient entityFox = (EntityRaccoonClient)var5;
-						if (!entityFox.isWolfTamed() && entityFox.playerToAttack == null) {
+						if (!entityFox.isRaccoonTamed() && entityFox.playerToAttack == null) {
 							entityFox.playerToAttack = entity;
 							if (entity instanceof EntityPlayer) {
-								entityFox.setWolfAngry(true);
+								entityFox.setRaccoonAngry(true);
 							}
 						}
 					}
 				}
 			} else if (entity != this && entity != null) {
-				if (this.isWolfTamed()
+				if (this.isRaccoonTamed()
 					&& entity instanceof EntityPlayer
-					&& ((EntityPlayer)entity).username.equalsIgnoreCase(this.getWolfOwner())) {
+					&& ((EntityPlayer)entity).username.equalsIgnoreCase(this.getRaccoonOwner())) {
 					return true;
 				}
 
@@ -441,7 +444,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	@Override
 	protected Entity findPlayerToAttack() {
-		return this.isWolfAngry() ? this.worldObj.getClosestPlayerToEntity(this, 16.0) : null;
+		return this.isRaccoonAngry() ? this.worldObj.getClosestPlayerToEntity(this, 16.0) : null;
 	}
 
 	@Override
@@ -452,7 +455,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 				&& entity.boundingBox.minY < this.boundingBox.maxY) {
 				this.attackTime = 20;
 				byte var3 = 2;
-				if (this.isWolfTamed()) {
+				if (this.isRaccoonTamed()) {
 					var3 = 4;
 				}
 
@@ -477,8 +480,8 @@ public class EntityRaccoonClient extends EntityAnimal {
 		if (super.interact(entityPlayer)) {
 			return true;
 		} else {
-			if (!this.isWolfTamed()) {
-				if (itemStack != null && itemStack.itemID == Item.blueberry.itemID && !this.isWolfAngry()) {
+			if (!this.isRaccoonTamed()) {
+				if (itemStack != null && itemStack.itemID == Item.blueberry.itemID && !this.isRaccoonAngry()) {
 					this.worldObj
 						.playSoundAtEntity(
 							this,
@@ -499,7 +502,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 							this.setTamed(true);
 							entityPlayer.triggerAchievement(AchievementList.tameFox);
 							this.setPathToEntity(null);
-							this.setWolfSitting(true);
+							this.setRaccoonSitting(true);
 							this.health = 20;
 							this.setOwner(entityPlayer.username);
 							this.showHeartsOrSmokeFX(true);
@@ -541,13 +544,13 @@ public class EntityRaccoonClient extends EntityAnimal {
 					}
 				}
 
-				if (entityPlayer.username.equalsIgnoreCase(this.getWolfOwner())) {
+				if (entityPlayer.username.equalsIgnoreCase(this.getRaccoonOwner())) {
 					if (!this.worldObj.multiplayerWorld) {
 						if (itemStack != null && itemStack.itemID == Item.bucketEmpty.itemID) {
 							ItemStack foxBucket = new ItemStack(Item.bucketFox);
 							NBTTagCompound nbt = new NBTTagCompound();
 							nbt.setString("FoxName", this.getNameTag());
-							nbt.setString("FoxOwner", this.getWolfOwner());
+							nbt.setString("FoxOwner", this.getRaccoonOwner());
 							nbt.setInteger("FoxHealth", this.health);
 							foxBucket.setTagCompound(nbt);
 							entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, foxBucket);
@@ -555,7 +558,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 							return true;
 						}
 
-						this.setWolfSitting(!this.isWolfSitting());
+						this.setRaccoonSitting(!this.isRaccoonSitting());
 						this.isJumping = false;
 						this.setPathToEntity(null);
 					}
@@ -600,8 +603,8 @@ public class EntityRaccoonClient extends EntityAnimal {
 			this.showHeartsOrSmokeFX(false);
 		} else if (arg1 == 8) {
 			this.field_25052_g = true;
-			this.timeWolfIsShaking = 0.0F;
-			this.prevTimeWolfIsShaking = 0.0F;
+			this.timeRaccoonIsShaking = 0.0F;
+			this.prevTimeRaccoonIsShaking = 0.0F;
 		} else {
 			super.handleHealthUpdate(arg1);
 		}
@@ -609,10 +612,10 @@ public class EntityRaccoonClient extends EntityAnimal {
 	}
 
 	public float setTailRotation() {
-		if (this.isWolfAngry()) {
+		if (this.isRaccoonAngry()) {
 			return 1.5393804F;
 		} else {
-			return this.isWolfTamed()
+			return this.isRaccoonTamed()
 				? (0.55F - (float)(20 - this.dataWatcher.getWatchableObjectInteger(18)) * 0.02F) * (float) Math.PI
 				: (float) (Math.PI / 5);
 		}
@@ -623,7 +626,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 		return 8;
 	}
 
-	public String getWolfOwner() {
+	public String getRaccoonOwner() {
 		return this.dataWatcher.getWatchableObjectString(17);
 	}
 
@@ -631,11 +634,11 @@ public class EntityRaccoonClient extends EntityAnimal {
 		this.dataWatcher.updateObject(17, arg1);
 	}
 
-	public boolean isWolfSitting() {
+	public boolean isRaccoonSitting() {
 		return (this.dataWatcher.getWatchableObjectByte(16) & 1) != 0;
 	}
 
-	public void setWolfSitting(boolean arg1) {
+	public void setRaccoonSitting(boolean arg1) {
 		byte var2 = this.dataWatcher.getWatchableObjectByte(16);
 		if (arg1) {
 			this.dataWatcher.updateObject(16, (byte)(var2 | 1));
@@ -645,11 +648,11 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	}
 
-	public boolean isWolfAngry() {
+	public boolean isRaccoonAngry() {
 		return (this.dataWatcher.getWatchableObjectByte(16) & 2) != 0;
 	}
 
-	public void setWolfAngry(boolean arg1) {
+	public void setRaccoonAngry(boolean arg1) {
 		byte var2 = this.dataWatcher.getWatchableObjectByte(16);
 		if (arg1) {
 			this.dataWatcher.updateObject(16, (byte)(var2 | 2));
@@ -659,7 +662,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	}
 
-	public boolean isWolfTamed() {
+	public boolean isRaccoonTamed() {
 		return (this.dataWatcher.getWatchableObjectByte(16) & 4) != 0;
 	}
 
