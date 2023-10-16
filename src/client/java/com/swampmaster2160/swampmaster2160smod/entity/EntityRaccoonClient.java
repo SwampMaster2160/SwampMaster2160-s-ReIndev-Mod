@@ -1,4 +1,4 @@
-package com.swampmaster2160.swampmaster2160smod.block.entity;
+package com.swampmaster2160.swampmaster2160smod.entity;
 
 import java.util.List;
 import net.minecraft.src.client.physics.AxisAlignedBB;
