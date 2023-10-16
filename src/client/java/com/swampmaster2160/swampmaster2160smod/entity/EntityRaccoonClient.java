@@ -33,7 +33,7 @@ public class EntityRaccoonClient extends EntityAnimal {
 
 	public EntityRaccoonClient(World world) {
 		super(world);
-		this.texture = "/mob/animals/fox/fox_generic.png";
+		this.texture = "/mob/animals/raccoon/raccoon_generic.png";
 		this.setSize(0.8F, 0.8F);
 		this.moveSpeed = 1.25F;
 		this.health = 12;
