@@ -9,3 +9,4 @@ tile.tri_state_or_gate.name=Tri-State Or Gate
 tile.tri_state_and_gate.name=Tri-State And Gate
 tile.tri_state_xor_gate.name=Tri-State XOr Gate
 item.test_wand.name=Test Wand
+item.spawnEgg.raccoon.name=Raccoon Spawn Egg
