@@ -24,23 +24,28 @@ public class ModelRaccoonClient extends ModelBase {
 	protected float adultHeadAlignment = 4.0F;
 
 	public ModelRaccoonClient() {
-		float unused = 14.5F;
+		float unused = 0F;
 		this.raccoonHeadMain = new Piece(0, 0);
 		//this.raccoonHeadMain.addBox(-3.0F, -3.0F, -3.0F, 6, 6, 6, 0.0F);
-		this.raccoonHeadMain.addBox(-1, -1.5F, -1.0F, 6, 6, 6, 0.0F);
+		//this.raccoonHeadMain.addBox(-3, -1.5F, -1.0F, 6, 6, 6, 0.0F);
 		this.raccoonBody = new Piece(40, 0);
 		//this.raccoonBody.addBox(-4.0F, -7.125F, -2.5F, 5, 10, 5, 0.0F);
-		this.raccoonBody.addBox(-2.5F, -5, -2.5F, 5, 10, 5, 0.0F);
+		//this.raccoonBody.addBox(-2.5F, -5, -5F, 5, 10, 5, 0.0F);
+		this.raccoonBody.addBox(-2.5F, -5, -20, 5, 10, 5, 0.0F);
 		this.raccoonLeg1 = new Piece(0, 18);
-		this.raccoonLeg1.addBox(-1.0F, 1.0F, -1.0F, 2, 5, 2, 0.0F);
+		//this.raccoonLeg1.addBox(-1.0F, 1.0F, -1.0F, 2, 5, 2, 0.0F);
+		this.raccoonLeg1.addBox(-1.0F, 0, -1.0F, 2, 5, 2, 0.0F);
 		this.raccoonLeg2 = new Piece(0, 18);
-		this.raccoonLeg2.addBox(-1.0F, 1.0F, -1.0F, 2, 5, 2, 0.0F);
+		//this.raccoonLeg2.addBox(-1.0F, 1.0F, -1.0F, 2, 5, 2, 0.0F);
+		this.raccoonLeg2.addBox(-1.0F, 0, -1.0F, 2, 5, 2, 0.0F);
 		this.raccoonLeg3 = new Piece(0, 18);
-		this.raccoonLeg3.addBox(-1.0F, 1.0F, -1.0F, 2, 5, 2, 0.0F);
+		//this.raccoonLeg3.addBox(-1.0F, 1.0F, -1.0F, 2, 5, 2, 0.0F);
+		this.raccoonLeg3.addBox(-1.0F, 0, -1.0F, 2, 5, 2, 0.0F);
 		this.raccoonLeg4 = new Piece(0, 18);
-		this.raccoonLeg4.addBox(-1.0F, 1.0F, -1.0F, 2, 5, 2, 0.0F);
+		//this.raccoonLeg4.addBox(-1.0F, 1.0F, -1.0F, 2, 5, 2, 0.0F);
+		this.raccoonLeg4.addBox(-1.0F, 0, -1.0F, 2, 5, 2, 0.0F);
 		this.raccoonFloofyTail = new Piece(40, 16);
-		this.raccoonFloofyTail.addBox(-2.0F, -1.0F, -5.0F, 6, 10, 6, 0.0F);
+		this.raccoonFloofyTail.addBox(-3.0F, -1.0F, -5.0F, 6, 10, 6, 0.0F);
 		this.raccoonRightEar = new Piece(16, 14);
 		this.raccoonRightEar.addBox(-2.5F, -4.875F, -1.0F, 2, 2, 1, 0.0F);
 		this.raccoonLeftEar = new Piece(23, 14);
@@ -48,9 +53,9 @@ public class ModelRaccoonClient extends ModelBase {
 		this.raccoonSnout = new Piece(0, 12);
 		this.raccoonSnout.addBox(-1.0F, 1.0F, -5.25F, 2, 2, 3, 0.0F);
 		this.raccoonSnout.setRotationPoint(-2.0F, unused, -6.5F);
-		this.raccoonHeadMain.setRotationPoint(-2.0F, unused, -6.5F);
-		this.raccoonRightEar.setRotationPoint(-2.0F, unused, -6.5F);
-		this.raccoonLeftEar.setRotationPoint(-2.0F, unused, -6.5F);
+		//this.raccoonHeadMain.setRotationPoint(-2.0F, unused, -6.5F);
+		//this.raccoonRightEar.setRotationPoint(-2.0F, unused, -6.5F);
+		//this.raccoonLeftEar.setRotationPoint(-2.0F, unused, -6.5F);
 	}
 
 	@Override
@@ -79,16 +84,16 @@ public class ModelRaccoonClient extends ModelBase {
 			this.raccoonFloofyTail.renderWithRotation(unused);
 			GL11.glPopMatrix();
 		} else {
-			this.raccoonHeadMain.renderWithRotation(unused);
-			this.raccoonRightEar.renderWithRotation(unused);
-			this.raccoonLeftEar.renderWithRotation(unused);
-			this.raccoonSnout.renderWithRotation(unused);
+			//this.raccoonHeadMain.renderWithRotation(unused);
+			//this.raccoonRightEar.renderWithRotation(unused);
+			//this.raccoonLeftEar.renderWithRotation(unused);
+			//this.raccoonSnout.renderWithRotation(unused);
 			this.raccoonBody.render(unused);
 			this.raccoonLeg1.render(unused);
 			this.raccoonLeg2.render(unused);
 			this.raccoonLeg3.render(unused);
 			this.raccoonLeg4.render(unused);
-			this.raccoonFloofyTail.renderWithRotation(unused);
+			//this.raccoonFloofyTail.renderWithRotation(unused);
 		}
 
 	}
@@ -122,7 +127,8 @@ public class ModelRaccoonClient extends ModelBase {
 				this.raccoonHeadMain.setRotationPoint(-3.0F, headPosBabySitting, -5.5F);
 				this.raccoonRightEar.setRotationPoint(-3.0F, headPosBabySitting, -5.5F);
 				this.raccoonLeftEar.setRotationPoint(-3.0F, headPosBabySitting, -5.5F);
-				this.raccoonBody.setRotationPoint(3.0F, 21.0F, 0.0F);
+				//this.raccoonBody.setRotationPoint(3.0F, 21.0F, 0.0F);
+				this.raccoonBody.setRotationPoint(0.0F, 0.0F, 0.0F);
 				this.raccoonFloofyTail.setRotationPoint(6.25F, 19.0F, 0.75F);
 				this.raccoonLeg1.setRotationPoint(-3.0F, 20.5F, 1.5F);
 				this.raccoonLeg2.setRotationPoint(-3.0F, 20.5F, 1.5F);
@@ -148,7 +154,8 @@ public class ModelRaccoonClient extends ModelBase {
 			this.raccoonHeadMain.setRotationPoint(-2.0F, headPosTamed, -6.5F);
 			this.raccoonRightEar.setRotationPoint(-2.0F, headPosTamed, -6.5F);
 			this.raccoonLeftEar.setRotationPoint(-2.0F, headPosTamed, -6.5F);
-			this.raccoonBody.setRotationPoint(0.0F, 16.0F, 2.0F);
+			//this.raccoonBody.setRotationPoint(0.0F, 16.0F, 2.0F);
+			this.raccoonBody.setRotationPoint(0.0F, 0.0F, 0.0F);
 			this.raccoonBody.rotateAngleX = (float) (Math.PI / 2);
 			this.raccoonBody.rotateAngleY = 0.0F;
 			this.raccoonFloofyTail.setRotationPoint(-1.0F, 14.0F, 5.5F);
@@ -177,7 +184,8 @@ public class ModelRaccoonClient extends ModelBase {
 				this.raccoonLeftEar.setRotationPoint(-2.0F, headPosTamed, -8.5F);
 			}
 
-			this.raccoonBody.setRotationPoint(0.0F, 16.0F, 2.0F);
+			//this.raccoonBody.setRotationPoint(0.0F, 16.0F, 2.0F);
+			this.raccoonBody.setRotationPoint(0.0F, 0.0F, 0.0F);
 			this.raccoonBody.rotateAngleX = (float) (Math.PI / 2);
 			this.raccoonBody.rotateAngleY = 0.0F;
 			this.raccoonFloofyTail.setRotationPoint(-1.0F, 14.0F, 5.5F);
@@ -198,14 +206,19 @@ public class ModelRaccoonClient extends ModelBase {
 			this.raccoonHeadMain.setRotationPoint(-2.0F, headPosTamed, -6.5F);
 			this.raccoonRightEar.setRotationPoint(-2.0F, headPosTamed, -6.5F);
 			this.raccoonLeftEar.setRotationPoint(-2.0F, headPosTamed, -6.5F);
-			this.raccoonBody.setRotationPoint(0.0F, 16.0F, 2.0F);
+			//this.raccoonBody.setRotationPoint(0.0F, 16.0F, 2.0F);
+			this.raccoonBody.setRotationPoint(0.0F, 0.0F, 0.0F);
 			this.raccoonBody.rotateAngleX = (float) (Math.PI / 2);
 			this.raccoonBody.rotateAngleY = 0.0F;
 			this.raccoonFloofyTail.setRotationPoint(-1.0F, 14.0F, 8.0F);
-			this.raccoonLeg1.setRotationPoint(-2.5F, 17.0F, 5.0F);
+			/*this.raccoonLeg1.setRotationPoint(-2.5F, 17.0F, 5.0F);
 			this.raccoonLeg2.setRotationPoint(0.5F, 17.0F, 5.0F);
 			this.raccoonLeg3.setRotationPoint(-2.5F, 17.0F, -4.0F);
-			this.raccoonLeg4.setRotationPoint(0.5F, 17.0F, -4.0F);
+			this.raccoonLeg4.setRotationPoint(0.5F, 17.0F, -4.0F);*/
+			this.raccoonLeg1.setRotationPoint(-1.5F, 19.0F, 4.0F);
+			this.raccoonLeg2.setRotationPoint(1.5F, 19.0F, 4.0F);
+			this.raccoonLeg3.setRotationPoint(-1.5F, 19.0F, -4F);
+			this.raccoonLeg4.setRotationPoint(1.5F, 19.0F, -4F);
 			this.raccoonLeg1.rotateAngleY = 0.0F;
 			this.raccoonLeg2.rotateAngleY = 0.0F;
 			this.raccoonLeg3.rotateAngleY = 0.0F;
