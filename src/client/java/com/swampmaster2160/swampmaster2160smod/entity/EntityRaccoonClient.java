@@ -81,11 +81,11 @@ public class EntityRaccoonClient extends EntityAnimal {
 	@Override
 	public String getEntityTexture() {
 		if (this.isRaccoonTamed() && !this.isRaccoonSitting()) {
-			return "/mob/animals/fox/fox_tame.png";
+			return "/mob/animals/raccoon/raccoon_tame.png";
 		} else if (this.isRaccoonTamed() && this.isRaccoonSitting()) {
-			return "/mob/animals/fox/fox_sleeping.png";
+			return "/mob/animals/raccoon/raccoon_sleeping.png";
 		} else {
-			return this.isRaccoonAngry() ? "/mob/animals/fox/fox_angry.png" : super.getEntityTexture();
+			return this.isRaccoonAngry() ? "/mob/animals/raccoon/raccoon_angry.png" : super.getEntityTexture();
 		}
 	}
 
