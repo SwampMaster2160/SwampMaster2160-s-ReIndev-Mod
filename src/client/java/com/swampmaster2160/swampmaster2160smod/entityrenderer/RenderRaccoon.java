@@ -7,8 +7,8 @@ import net.minecraft.src.client.renderer.entity.RenderLiving;
 import net.minecraft.src.game.entity.Entity;
 import net.minecraft.src.game.entity.EntityLiving;
 
-public class RenderRaccoonClient extends RenderLiving {
-	public RenderRaccoonClient(ModelBase modelBase, float arg2) {
+public class RenderRaccoon extends RenderLiving {
+	public RenderRaccoon(ModelBase modelBase, float arg2) {
 		super(modelBase, arg2);
 	}
 

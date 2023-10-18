@@ -20,7 +20,7 @@ import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateXorGa
 import com.swampmaster2160.swampmaster2160smod.entity.EntityRaccoonClient;
 import com.swampmaster2160.swampmaster2160smod.item.ItemSMMSpawnEggClient;
 import com.swampmaster2160.swampmaster2160smod.item.ItemTestWandClient;
-import com.swampmaster2160.swampmaster2160smod.mixininterfaces.IMixinEntityList;
+import com.swampmaster2160.swampmaster2160smod.mixininterfaces.IMixinEntityListClient;
 
 import net.minecraft.src.game.entity.EntityList;
 import net.minecraft.src.game.item.Item;
@@ -114,7 +114,7 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 		raccoonSpawnEgg = (ItemSMMSpawnEggClient)Item.itemsList[raccoonSpawnEggRegistered.getRegisteredItemId()];
 		raccoonSpawnEgg.setFlavor("raccoon");
 		// Register entities (Clientside)
-		IMixinEntityList entityListDummyObject = (IMixinEntityList)(Object)new EntityList();
+		IMixinEntityListClient entityListDummyObject = (IMixinEntityListClient)(Object)new EntityList();
 		entityListDummyObject.addMappingPublic(EntityRaccoonClient.class, "Raccoon", 300);
 	}
 }

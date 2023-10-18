@@ -1,0 +1,9 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.swampmaster2160.swampmaster2160smod.server.mixins",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+	  "MixinEntityListServer"
+	]
+  }

@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.src.client.renderer.entity.Render;
 
 import com.swampmaster2160.swampmaster2160smod.entity.EntityRaccoonClient;
-import com.swampmaster2160.swampmaster2160smod.entitymodel.ModelRaccoonClient;
-import com.swampmaster2160.swampmaster2160smod.entityrenderer.RenderRaccoonClient;
+import com.swampmaster2160.swampmaster2160smod.entitymodel.ModelRaccoon;
+import com.swampmaster2160.swampmaster2160smod.entityrenderer.RenderRaccoon;
 
 import net.minecraft.src.client.renderer.entity.RenderManager;
 
@@ -24,7 +24,7 @@ public abstract class MixinRenderManager {
 
 	@Inject(method = "<init>", at = @At("TAIL"), cancellable = true)
 	public void RenderManager(CallbackInfo callbackInfo) {
-		this.entityRenderMap.put(EntityRaccoonClient.class, new RenderRaccoonClient(new ModelRaccoonClient(), 0.5F));
+		this.entityRenderMap.put(EntityRaccoonClient.class, new RenderRaccoon(new ModelRaccoon(), 0.5F));
 		for(Render renderer : this.entityRenderMap.values()) {
 			renderer.setRenderManager((RenderManager)(Object)this);
 		}

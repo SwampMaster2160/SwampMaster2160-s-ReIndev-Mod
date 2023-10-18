@@ -9,7 +9,7 @@ import net.minecraft.src.client.model.Piece;
 import net.minecraft.src.game.MathHelper;
 import net.minecraft.src.game.entity.EntityLiving;
 
-public class ModelRaccoonClient extends ModelBase {
+public class ModelRaccoon extends ModelBase {
 	// Positions on the raccoon texture sheet that the textures for the parts are.
 	public Piece raccoonBody       = new Piece(0,  17);
 	public Piece raccoonHeadMain   = new Piece(0,  0 );
@@ -24,7 +24,7 @@ public class ModelRaccoonClient extends ModelBase {
 	// Is the raccoon sleeping?
 	private boolean isSleeping = false;
 
-	public ModelRaccoonClient() {
+	public ModelRaccoon() {
 		// Set the offsets from the rotation points and the sizes of the parts
 		this.raccoonBody      .addBox(-2.5F, -5, -21 + 18.5F, 5, 10, 5, 0.0F);
 		this.raccoonHeadMain  .addBox(-3, -3, -6, 6, 6, 6, 0.0F);

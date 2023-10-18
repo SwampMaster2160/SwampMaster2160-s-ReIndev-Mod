@@ -17,7 +17,13 @@ import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateOrGat
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateSignalServer;
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateTrueServer;
 import com.swampmaster2160.swampmaster2160smod.block.tristate.BlockTriStateXorGateServer;
+//import com.swampmaster2160.swampmaster2160smod.entity.EntityRaccoonServer;
+import com.swampmaster2160.swampmaster2160smod.item.ItemSMMSpawnEggServer;
 import com.swampmaster2160.swampmaster2160smod.item.ItemTestWandServer;
+//import com.swampmaster2160.swampmaster2160smod.mixininterfaces.IMixinEntityListServer;
+
+//import net.minecraft.src.game.entity.EntityList;
+import net.minecraft.src.game.item.Item;
 
 public class SwampMaster2160sModServer extends SwampMaster2160sMod implements ServerMod {
 	// All the blocks as static vars
@@ -33,6 +39,8 @@ public class SwampMaster2160sModServer extends SwampMaster2160sMod implements Se
 	public static RegisteredBlock triStateXorGate;
 	// Add the items as static vars
 	public static RegisteredItem testWand;
+	public static RegisteredItem raccoonSpawnEggRegistered;
+	public static ItemSMMSpawnEggServer raccoonSpawnEgg;
 	// A list of tri-state blocks
 	public static Vector<Integer> triStateBlocksList;
 
@@ -97,5 +105,15 @@ public class SwampMaster2160sModServer extends SwampMaster2160sMod implements Se
 			.setGameItemSource(ItemTestWandServer.class)
 			.setItemName("test_wand")
 		);
+
+		raccoonSpawnEggRegistered = registerNewItem("raccoon_spawn_egg", new ItemBuilder()
+			.setGameItemSource(ItemSMMSpawnEggServer.class)
+			.setItemName("spawnEgg.raccoon")
+		);
+		raccoonSpawnEgg = (ItemSMMSpawnEggServer)Item.itemsList[raccoonSpawnEggRegistered.getRegisteredItemId()];
+		raccoonSpawnEgg.setFlavor("raccoon");
+		// Register entities (Serverside)
+		//IMixinEntityListServer entityListDummyObject = (IMixinEntityListServer)(Object)new EntityList();
+		//entityListDummyObject.addMappingPublic(EntityRaccoonServer.class, "Raccoon", 300);
 	}
 }

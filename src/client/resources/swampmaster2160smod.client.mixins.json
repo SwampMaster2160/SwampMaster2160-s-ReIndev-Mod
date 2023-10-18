@@ -4,7 +4,7 @@
   "package": "com.swampmaster2160.swampmaster2160smod.client.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinEntityList",
+    "MixinEntityListClient",
     "MixinRenderManager"
   ]
 }
