@@ -11,15 +11,15 @@ import net.minecraft.src.game.entity.EntityLiving;
 
 public class ModelRaccoonClient extends ModelBase {
 	// Positions on the raccoon texture sheet that the textures for the parts are.
-	public Piece raccoonBody       = new Piece(40, 0 );
+	public Piece raccoonBody       = new Piece(0,  17);
 	public Piece raccoonHeadMain   = new Piece(0,  0 );
-	public Piece raccoonSnout      = new Piece(0,  12);
-	public Piece raccoonLeftEar    = new Piece(23, 14);
-	public Piece raccoonRightEar   = new Piece(16, 14);
-	public Piece raccoonLeg1       = new Piece(0,  18);
-	public Piece raccoonLeg2       = new Piece(0,  18);
-	public Piece raccoonLeg3       = new Piece(0,  18);
-	public Piece raccoonLeg4       = new Piece(0,  18);
+	public Piece raccoonSnout      = new Piece(18, 0 );
+	public Piece raccoonLeftEar    = new Piece(0,  0 );
+	public Piece raccoonRightEar   = new Piece(0,  3 );
+	public Piece raccoonLeg1       = new Piece(32, 0 );
+	public Piece raccoonLeg2       = new Piece(40, 0 );
+	public Piece raccoonLeg3       = new Piece(48, 0 );
+	public Piece raccoonLeg4       = new Piece(56, 0 );
 	public Piece raccoonFloofyTail = new Piece(40, 16);
 	// Is the raccoon sleeping?
 	private boolean isSleeping = false;
@@ -74,10 +74,10 @@ public class ModelRaccoonClient extends ModelBase {
 		this.raccoonLeftEar.setRotationPoint(0, height_offset, -5);
 		this.raccoonBody.setRotationPoint(0.0F, height_offset, 0.0F);
 		this.raccoonFloofyTail.setRotationPoint(0, height_offset, 4);
-		this.raccoonLeg1.setRotationPoint(-1.5F, height_offset + 3.5F, 3.5F);
-		this.raccoonLeg2.setRotationPoint(1.5F, height_offset + 3.5F, 3.5F);
-		this.raccoonLeg3.setRotationPoint(-1.5F, height_offset + 3.5F, -3.5F);
-		this.raccoonLeg4.setRotationPoint(1.5F, height_offset + 3.5F, -3.5F);
+		this.raccoonLeg1.setRotationPoint(-1.495F, height_offset + 2.5F, 3.5F);
+		this.raccoonLeg2.setRotationPoint(1.495F, height_offset + 2.5F, 3.5F);
+		this.raccoonLeg3.setRotationPoint(-1.495F, height_offset + 2.5F, -3.5F);
+		this.raccoonLeg4.setRotationPoint(1.495F, height_offset + 2.5F, -3.5F);
 		// Get how much each part has been rotated around said points depending on the entity data
 		this.raccoonBody.rotateAngleX = (float) (Math.PI / 2);
 		this.raccoonLeg1.rotateAngleX = MathHelper.cos(forward * 0.6662F) * 1.4F * haltDelta;
