@@ -4,6 +4,8 @@ import java.util.Vector;
 
 import com.fox2code.foxloader.loader.ClientMod;
 import com.fox2code.foxloader.registry.BlockBuilder;
+import com.fox2code.foxloader.registry.GameRegistry;
+import com.fox2code.foxloader.registry.GameRegistryClient;
 import com.fox2code.foxloader.registry.ItemBuilder;
 import com.fox2code.foxloader.registry.RegisteredBlock;
 import com.fox2code.foxloader.registry.RegisteredItem;
@@ -22,6 +24,7 @@ import com.swampmaster2160.swampmaster2160smod.item.ItemSMMSpawnEggClient;
 import com.swampmaster2160.swampmaster2160smod.item.ItemTestWandClient;
 import com.swampmaster2160.swampmaster2160smod.mixininterfaces.IMixinEntityListClient;
 
+import net.minecraft.src.game.block.Block;
 import net.minecraft.src.game.entity.EntityList;
 import net.minecraft.src.game.item.Item;
 
@@ -56,6 +59,8 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 			.setGameBlockSource(BlockDeathClient.class)
 			.setBlockName("death_block")
 		);*/
+		/*int id = GameRegistry.getInstance().generateNewBlockId("death_block", GameRegistry.DEFAULT_FALLBACK_BLOCK_ID);
+		Block block = new BlockDeathClient(id);*/
 		/*triStateSignal = registerNewBlock("tri_state_signal", new BlockBuilder()
 			.setGameBlockSource(BlockTriStateSignalClient.class)
 			.setBlockName("tri_state_signal")
