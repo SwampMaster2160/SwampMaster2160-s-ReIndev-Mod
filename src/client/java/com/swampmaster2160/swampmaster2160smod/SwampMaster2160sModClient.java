@@ -55,13 +55,15 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 		// Register blocks (Clientside)
 		triStateBlocksList = new Vector<Integer>();
 
-		/*deathBlock = registerNewBlock("death_block", new BlockBuilder()
+		deathBlock = registerNewBlock("death_block", new BlockBuilder()
 			.setGameBlockSource(BlockDeathClient.class)
 			.setBlockName("death_block")
-		);*/
-		/*int id = GameRegistry.getInstance().generateNewBlockId("death_block", GameRegistry.DEFAULT_FALLBACK_BLOCK_ID);
+		);
+		/*GameRegistry gameRegistry = GameRegistry.getInstance();
+		String blockName = GameRegistry.validateAndFixRegistryName(getModContainer().id + ":" + "death_block");
+		int id = gameRegistry.generateNewBlockId(blockName, GameRegistry.DEFAULT_FALLBACK_BLOCK_ID);
 		Block block = new BlockDeathClient(id);*/
-		/*triStateSignal = registerNewBlock("tri_state_signal", new BlockBuilder()
+		triStateSignal = registerNewBlock("tri_state_signal", new BlockBuilder()
 			.setGameBlockSource(BlockTriStateSignalClient.class)
 			.setBlockName("tri_state_signal")
 		);
@@ -105,7 +107,7 @@ public class SwampMaster2160sModClient extends SwampMaster2160sMod implements Cl
 			.setGameBlockSource(BlockTriStateXorGateClient.class)
 			.setBlockName("tri_state_xor_gate")
 		);
-		triStateBlocksList.add(triStateXorGate.getRegisteredBlockId());*/
+		triStateBlocksList.add(triStateXorGate.getRegisteredBlockId());
 		// Register items (Clientside)
 		testWand = registerNewItem("test_wand", new ItemBuilder()
 			.setGameItemSource(ItemTestWandClient.class)
